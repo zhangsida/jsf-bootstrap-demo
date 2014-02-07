@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="templates/default.xhtml"
+>
+	<ui:define name="navbar">
+	<script type="text/javascript">
+	jQuery(function($){
+		$( "#date" ).datepicker({
+	    	showOn: "button",
+	      	buttonImage: "resources/img/picker.jpg",
+	      	buttonImageOnly: true,
+	      	dateFormat: "dd/mm/yy"
+	    });
+	}); 
+	  </script> 
+		<div class="daynavbar">
+		<h:form prependId="false">
+			<div>
+				<div class="left">
+					<button jsf:action="#{dayController.previous}">
+						<span></span>
+					</button>
+				</div>	
+				<div class="middle">
+					<input type="text" jsf:id="date" disabled="disabled" value="#{dayController.currentDate.dateStr}">
+						<f:ajax event="change" listener="#{dayController.gotoDate}" render="@all"/>
+					</input>
+				</div>
+				<div class="right">
+					<button jsf:action="createEditView">
+						<span class="new"></span>
+					</button>
+					<button jsf:action="#{dayController.next}">
+						<span></span>
+					</button>
+				</div>
+			</div>
+		</h:form>
+		</div>
+	</ui:define>
+	<ui:define name="content">
+<!-- 		<div class="table-responsive"> -->
+		<table class="mytable">
+			<c:forEach items="#{constants.hours}" var="hour">
+				<tr>
+					<td class="txtcenter vamiddle">#{hour}</td>
+					<ui:repeat var="data" value="#{dayController.currentDate.events}">
+						<ui:fragment rendered="#{data.startTime.hourOfDay eq hour}">
+							<td rowspan="#{data.durationHours()}">
+								<div class="eventblock" style="height: #{data.durationMinutes()}px; top:#{data.startTime.minuteOfHour}px;">
+									<p>#{data.name}</p>
+									<p>#{timeToStringConverter.convert(data.startTime)}-#{timeToStringConverter.convert(data.endTime)}</p>
+								</div>
+							</td>
+						</ui:fragment>
+						<ui:fragment rendered="#{hour lt data.startTime.hourOfDay or  hour gt data.endTime.hourOfDay}">
+							<td></td>
+						</ui:fragment>
+					</ui:repeat>
+				</tr>
+			</c:forEach>
+		</table>
+<!-- 		</div> -->
+	</ui:define>
+</ui:composition>

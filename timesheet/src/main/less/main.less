@@ -1,0 +1,269 @@
+@import "bootstrap.less";
+
+@default-bg:							#f8f8f8;
+@body-bg:              					#F1F1F1;
+@btn-default-bg:      					@default-bg;
+@pagination-active-bg:   				@navbar-default-link-active-bg;
+@pagination-active-color:   			@link-hover-color;
+@table-bg-hover:						white;
+@icon-font-path:        				"../../resources/fonts/";
+/* @icon-font-name:        		 		"glyphicons-halflings-regular"; */
+@carousel-caption-color:				@default-bg;
+@carousel-control-width: 				5%;
+@carousel-indicator-active-bg:			@brand-primary;
+@carousel-indicator-border-color:		black;
+
+
+html,body{
+	height: 100%;
+	min-height:100%; 
+	position:relative;
+}
+
+/* .{ */
+/* 	.glyphicon; */
+/* 	.glyphicon-chevron-right; */
+/* } */
+
+.hhack{
+    padding-bottom: 1000px;
+    margin-bottom: -1000px;
+}
+
+.block {
+  text-align: center;
+}
+
+.txtcenter{
+	text-align: center;
+}
+
+.vamiddle{
+	vertical-align: middle;
+}
+
+.eventblock{
+	.img-rounded;
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	background: linear-gradient(to right, rgba(242,246,248,1) 0%, rgba(42,174,250,1) 71%, rgba(224,239,249,1) 100%);
+}
+
+div.daynavbar{
+	
+	.well;
+	
+	div{
+	.make-row(0);
+
+		div{
+			.make-md-column(4);
+		}
+		
+		div.left{
+			span{
+				.glyphicon;
+				.glyphicon-chevron-left;
+			}
+		}
+	
+		div.middle{ 
+			p{
+				.txtcenter;
+				vertical-align: middle;
+				margin: 0;
+			}
+			input{
+				.form-control;
+				display: inline;
+				margin-right: 2%;
+				width: 80%;
+			}
+		}
+		
+		div.right{
+				button{
+				float: right;
+				margin-left: 2%;
+			}
+			span{
+				.glyphicon;
+				.glyphicon-chevron-right;
+			}
+			span.new{
+				.glyphicon-plus;
+			}
+		}
+	}
+}
+
+row{
+	.make-row();
+	display: block;
+	margin-top:10px;
+}
+
+row.formrow{
+	
+	div:nth-child(1){
+	    .make-md-column(2);
+	}
+	
+	div:nth-child(2){
+		.make-md-column(7);
+	}
+	
+	div:nth-child(3){
+		.make-md-column(3);
+		color: red;
+		font-weight: bold;
+	}
+}
+
+row.loginrow{
+	
+	div.inputlabel{
+	    .make-md-column(2);
+	}
+
+	div.input{
+	    .make-md-column(4);
+	}
+
+	div.message{
+	    .make-md-column(6);
+	    text-align: left;  
+	}
+}
+
+fcol{
+	.make-md-column(12);
+}
+
+hcol{
+	.make-md-column(6);
+}
+
+content{
+  	.make-row();
+	
+	div.main{
+		.make-md-column(12);
+		margin-bottom: 10px;
+	}
+	
+/* 	div.side{ */
+/* 		.make-md-column(2); */
+/* 	}	 */
+}
+
+.myalert{
+  	.alert;
+ 	.alert-danger;
+} 
+
+.mybtn{
+	.btn-sm;
+	.btn-default;
+}
+
+button{
+	.mybtn;
+}
+
+input[type=button]{
+	.mybtn;
+}
+
+input[type=submit]{
+	.mybtn;
+}
+
+#myCarousel{
+	
+	img{
+		.img-responsive;
+	}
+	
+	div.carousel-caption{
+		p{
+			.lead;
+		}
+		
+		a{
+			.btn;
+			.btn-primary;
+		}
+	}
+	
+}
+
+/* BOOTSTRAP STUFF */
+.carousel-inner > .item > img{ 
+	margin: 0 auto; 
+}
+
+.form-control{
+	max-width: 300px;
+}
+
+.jumbotron{
+    padding: 0.5em 0.6em;
+    max-height: 100 px;
+    h1 {
+        font-size: 2em;
+    }
+    p {
+        font-size: 1.2em;
+        .btn {
+            padding: 0.5em;
+        }
+    }
+}
+
+.glyphicon{
+	color: @gray-light;
+}
+
+@media screen and (min-width: @screen-sm-min){
+  .modal-dialog {
+    width: 700px;
+  }
+  
+	.modal-footer ul{
+		text-align: left;
+	}
+}
+
+.bordertable{
+	.table-bordered;     
+	background: @default-bg;
+	width: 100%;
+	
+	tr{
+		height: 60px;
+		vertical-align: top;
+	}
+	
+	td{
+		border: 2px solid #e7e7e7 !important; 
+		max-width: 100px;
+		div{
+				position: relative;
+		}
+	}
+	
+	th{
+		text-align: center;
+	}
+	   
+	tfoot{
+		font-weight: bold;
+		text-align: center;
+		padding: 4px;   
+	}
+}
+
+.mytable{
+	.bordertable;
+	.table-hover;
+}

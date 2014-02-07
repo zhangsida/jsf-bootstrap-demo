@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" 
+>
+<h:head>
+	<title>bridgingIT Timetracker</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- 	<script type="text/javascript" src="resources/bootstrap/js/jquery-1.10.2.min.js" /> -->
+<!-- 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js" /> -->
+		<h:outputScript library="bootstrap" name="js/jquery-1.10.2.min.js" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.js"/>
+		<h:outputScript library="bootstrap" name="js/bootstrap.min.js" />
+	<!-- 	<h:outputStylesheet name="css/screen.css" /> -->
+	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/smoothness/jquery-ui.min.css"/>
+<!-- 	<link type="text/css" rel="stylesheet" href="resources/css/main.css" /> -->
+		<h:outputStylesheet name="css/main.css" />
+</h:head>
+<h:body>
+	<div class="container">
+		<!-- 		<ui:include src="carousel.xhtml" /> -->
+		<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse">
+				<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+			</button>
+			<!--     <a class="navbar-brand" href="#">Brand</a> -->
+		</div>
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li class="#{'x' eq '' ? 'active' : ''}"><h:link outcome="index" value="Jänner" /></li>
+				<li class="#{'x' eq '' ? 'active' : ''}"><h:link outcome="index" value="Februar" /></li>
+				<li class="#{'x' eq '' ? 'active' : ''}"><h:link outcome="index" value="März" /></li>
+				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="April" /></li>
+				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Mai" /></li>
+				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Juni" /></li>
+				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Juli" /></li>
+				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="August" /></li>
+				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="September" /></li>
+				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Oktober" /></li>
+				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="November" /></li>
+				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Dezember" /></li>
+			</ul>
+		</div>
+		</nav>
+		<ui:insert name="navbar">
+        </ui:insert>
+		<content> <!-- Content -->
+			<div class="main">
+				<ui:insert name="content">
+	                    [Template content will be inserted here]
+	         	</ui:insert>
+			</div>
+		</content>
+
+		<row> <!-- Footer --> <fcol>
+		<p id="footer">Bootstrap rocks!</p>
+		</fcol> </row>
+	</div>
+</h:body>
+</html>
