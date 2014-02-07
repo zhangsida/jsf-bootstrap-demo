@@ -9,7 +9,7 @@
 		<javaVersion>1.7</javaVersion>
 		<jsfVersion>2.2.5</jsfVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	</properties> 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
