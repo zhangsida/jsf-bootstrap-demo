@@ -20,8 +20,11 @@
 				<label for="end">End time:</label> 
 				<input type="text" class="form-control" id="end" placeholder="Enter end" jsf:value="#{dayController.event.endTimeStr}"/>
 			</div>
-			<button jsf:action="#{dayController.save}">
-				<span></span>
+			<button class="savebtn" jsf:action="#{dayController.save}">
+				<span></span><div>Save</div>
+			</button>
+			<button class="cancelbtn" jsf:action="#{dayController.cancel}">
+				<span></span><div>Cancel</div>
 			</button>
 		</h:form>
 	</ui:define>
