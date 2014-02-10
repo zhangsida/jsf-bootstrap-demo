@@ -5,6 +5,8 @@ import javax.faces.component.html.HtmlInputText;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.joda.time.LocalDate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
@@ -23,6 +25,8 @@ import at.bit.spring.scope.Constants;
 @Scope(value = WebApplicationContext.SCOPE_SESSION)
 public class DayController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(DayController.class);
+
 	@Autowired
 	private Neo4jTemplate templ;
 
@@ -38,14 +42,20 @@ public class DayController {
 	@PostConstruct
 	@Transactional
 	private void init() {
+		LOGGER.debug("constructed");
 		findorCreateDate(new LocalDate());
 	}
 
 	@Transactional
-	public void save() {
-		System.out.println("saved");
+	public String save() {
 		currentDate.getEvents().add(event);
 		event = new Event();
+		return "dayView";
+	}
+
+	public String cancel() {
+		event = new Event();
+		return "dayView";
 	}
 
 	@Transactional
@@ -55,9 +65,11 @@ public class DayController {
 
 	@Transactional
 	public void gotoDate(final AjaxBehaviorEvent event) {
+		LOGGER.debug("gotoDate called");
 		Object source = event.getSource();
 		if (source instanceof HtmlInputText) {
 			LocalDate date = LocalDate.parse(((HtmlInputText) source).getValue().toString(), Constants.DATE_FORMATTER);
+			LOGGER.debug("gotoDate " + date.toString(Constants.DATE_FORMATTER));
 			findorCreateDate(date);
 		}
 	}
@@ -78,8 +90,7 @@ public class DayController {
 		} else {
 			templ.fetch(currentDate.getEvents());
 			for (Event e : currentDate.getEvents()) {
-				System.out.println(e.getName());
-				System.out.println(e.getStartTime());
+				LOGGER.info("Found event {} ({}-{})", e.getName(), e.getStartTime(), e.getEndTime());
 			}
 		}
 	}
