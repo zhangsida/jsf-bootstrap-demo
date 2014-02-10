@@ -1,4 +1,6 @@
 @import "bootstrap.less";
+@import "bootstrap-custom.less";
+@import "build3.less";
 
 @default-bg:							#f8f8f8;
 @body-bg:              					#F1F1F1;
@@ -7,23 +9,52 @@
 @pagination-active-color:   			@link-hover-color;
 @table-bg-hover:						white;
 @icon-font-path:        				"../../resources/fonts/";
-/* @icon-font-name:        		 		"glyphicons-halflings-regular"; */
 @carousel-caption-color:				@default-bg;
 @carousel-control-width: 				5%;
 @carousel-indicator-active-bg:			@brand-primary;
 @carousel-indicator-border-color:		black;
 
 
+.w80{
+	width: 80%;
+}
+
+.w20{
+	width: 20%;
+}
+
 html,body{
 	height: 100%;
-	min-height:100%; 
+	min-height:100%;  
 	position:relative;
 }
 
-/* .{ */
-/* 	.glyphicon; */
-/* 	.glyphicon-chevron-right; */
-/* } */
+.mytable{
+	.bordertable;
+	.table-hover;
+}
+
+.cancelbtn{
+	span{
+		.glyphicon;
+		.glyphicon-remove;
+		margin-right: 5px;
+	}
+	div{
+		display: inline;
+	}
+}
+
+.savebtn{
+	span{
+		.glyphicon;
+		.glyphicon-floppy-save;
+		margin-right: 5px;
+	}
+	div{
+		display: inline;
+	}
+}
 
 .hhack{
     padding-bottom: 1000px;
@@ -67,16 +98,19 @@ div.daynavbar{
 		}
 	
 		div.middle{ 
-			p{
-				.txtcenter;
-				vertical-align: middle;
-				margin: 0;
-			}
+/* 		 	.input-group; */
+/* 		 	.form-group; */
+/* 		 	.date; */
+/* 			p{ */
+/* 				.txtcenter; */
+/* 				vertical-align: middle; */
+/* 				margin: 0; */
+/* 			} */
 			input{
 				.form-control;
-				display: inline;
-				margin-right: 2%;
-				width: 80%;
+/* 				display: inline; */
+/* 				margin-right: 2%; */
+/* 				width: 80%; */
 			}
 		}
 		
@@ -162,6 +196,9 @@ content{
 } 
 
 .mybtn{
+	margin-right:	5px;
+	background-color: @body-bg; 
+	.btn;
 	.btn-sm;
 	.btn-default;
 }
@@ -197,73 +234,3 @@ input[type=submit]{
 	
 }
 
-/* BOOTSTRAP STUFF */
-.carousel-inner > .item > img{ 
-	margin: 0 auto; 
-}
-
-.form-control{
-	max-width: 300px;
-}
-
-.jumbotron{
-    padding: 0.5em 0.6em;
-    max-height: 100 px;
-    h1 {
-        font-size: 2em;
-    }
-    p {
-        font-size: 1.2em;
-        .btn {
-            padding: 0.5em;
-        }
-    }
-}
-
-.glyphicon{
-	color: @gray-light;
-}
-
-@media screen and (min-width: @screen-sm-min){
-  .modal-dialog {
-    width: 700px;
-  }
-  
-	.modal-footer ul{
-		text-align: left;
-	}
-}
-
-.bordertable{
-	.table-bordered;     
-	background: @default-bg;
-	width: 100%;
-	
-	tr{
-		height: 60px;
-		vertical-align: top;
-	}
-	
-	td{
-		border: 2px solid #e7e7e7 !important; 
-		max-width: 100px;
-		div{
-				position: relative;
-		}
-	}
-	
-	th{
-		text-align: center;
-	}
-	   
-	tfoot{
-		font-weight: bold;
-		text-align: center;
-		padding: 4px;   
-	}
-}
-
-.mytable{
-	.bordertable;
-	.table-hover;
-}

@@ -1,0 +1,67 @@
+/* BOOTSTRAP STUFF */
+
+.glyphicon{
+/* 	color: @gray-light; */
+/* 	margin-right: 5px; */
+}
+
+.carousel-inner > .item > img{ 
+	margin: 0 auto; 
+}
+
+.form-control{
+	max-width: 300px;
+}
+
+.jumbotron{
+    padding: 0.5em 0.6em;
+    max-height: 100 px;
+    h1 {
+        font-size: 2em;
+    }
+    p {
+        font-size: 1.2em;
+        .btn {
+            padding: 0.5em;
+        }
+    }
+}
+
+@media screen and (min-width: @screen-sm-min){
+  .modal-dialog {
+    width: 700px;
+  }
+  
+	.modal-footer ul{
+		text-align: left;
+	}
+}
+
+.bordertable{
+	.table-bordered;     
+	background: @default-bg;
+	width: 100%;
+	
+	tr{
+		height: 60px;
+		vertical-align: top;
+	}
+	
+	td{
+		border: 2px solid #e7e7e7 !important; 
+		max-width: 100px;
+		div{
+				position: relative;
+		}
+	}
+	
+	th{
+		text-align: center;
+	}
+	   
+	tfoot{
+		font-weight: bold;
+		text-align: center;
+		padding: 4px;   
+	}
+}
