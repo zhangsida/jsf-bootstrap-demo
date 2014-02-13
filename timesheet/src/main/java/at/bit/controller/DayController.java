@@ -46,16 +46,20 @@ public class DayController {
 		findorCreateDate(new LocalDate());
 	}
 
+	public String newEvent() {
+		event = new Event();
+		event.setEndTime(event.getEndTime().plusHours(1));
+		return "createEditView?faces-redirect=true";
+	}
+
 	@Transactional
 	public String save() {
 		currentDate.getEvents().add(event);
-		event = new Event();
-		return "dayView";
+		return "dayView?faces-redirect=true";
 	}
 
 	public String cancel() {
-		event = new Event();
-		return "dayView";
+		return "dayView?faces-redirect=true";
 	}
 
 	@Transactional
