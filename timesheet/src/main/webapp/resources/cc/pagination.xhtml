@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:f="http://java.sun.com/jsf/core" 
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="paginationController" type="at.bit.controller.PaginationController" required="true"/>
+	<composite:attribute name="tableID" required="true"/>
+</composite:interface>
+
+<composite:implementation>
+<h:panelGroup id="paginationCC">
+	<ul class="pagination">
+		<li class="#{cc.attrs.paginationController.currentPage ne 1 ? '' : 'disabled'}">
+			<h:commandLink value="&#171;" actionListener="#{cc.attrs.paginationController.prevPage()}"
+					disabled="#{cc.attrs.paginationController.currentPage eq 1}">
+				<f:ajax render="paginationCC #{cc.attrs.tableID}" />
+			</h:commandLink>
+		</li>
+		<c:forEach begin="1" end="#{cc.attrs.paginationController.pages()}" var="counter">
+			<li class="#{cc.attrs.paginationController.currentPage eq (counter) ? 'active' : ''}">
+				<h:commandLink href="#" value="#{counter}">
+					<f:setPropertyActionListener target="#{cc.attrs.paginationController.currentPage}" value="#{counter}" />
+					<f:ajax render="paginationCC #{cc.attrs.tableID}"/>
+				</h:commandLink></li>
+		</c:forEach>
+		<li class="#{cc.attrs.paginationController.currentPage eq cc.attrs.paginationController.pages() ? 'disabled' : ''}">
+			<h:commandLink value="&#187;" actionListener="#{cc.attrs.paginationController.nextPage()}"
+					disabled="#{cc.attrs.paginationController.currentPage eq cc.attrs.paginationController.pages()}">
+				<f:ajax render="paginationCC #{cc.attrs.tableID}" />
+			</h:commandLink>
+		</li>
+	</ul>
+</h:panelGroup>
+</composite:implementation>
+
+</html>
