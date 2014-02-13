@@ -1,26 +1,58 @@
-@import "bootstrap.less";
+@import "bootstrap/bootstrap.less";
+@import "bootstrap/theme.less";
+@import "bootstrap/datepicker/datepicker3.less";
 @import "bootstrap-custom.less";
-@import "build3.less";
 
-@default-bg:							#f8f8f8;
-@body-bg:              					#F1F1F1;
-@btn-default-bg:      					@default-bg;
+/* @today-bg:								lighten(@btn-primary-color, 60%); */
+/* @default-bg:							#E1F7FC; */
+@brand-primary:							#8AA1BA;
+/* @body-bg:              					#F1F1F1; */
+@body-bg:              					@brand-primary;
+@default-bg:							lighten(@brand-primary, 10%);
+@btn-default-border:  					darken(@default-bg, 10%);
+@well-bg:								lighten(@brand-primary, 25%);
+@navbar-default-bg:						@well-bg;
+@input-group-addon-bg:					@default-bg;
+@table-border-color:					darken(@default-bg, 6%);
+@btn-default-bg:						@default-bg;
+@btn-default-border:          		    darken(@default-bg, 6%);
+@input-border:              		    darken(@default-bg, 6%);
 @pagination-active-bg:   				@navbar-default-link-active-bg;
 @pagination-active-color:   			@link-hover-color;
+@navbar-default-link-color:				@brand-primary;
+@navbar-default-link-active-color:		darken(@navbar-default-link-color, 30%);
+@navbar-default-link-hover-color:		darken(@navbar-default-link-color, 20%);;
+@navbar-default-link-diabled-color:		lighten(@navbar-default-link-color, 30%);
+
 @table-bg-hover:						white;
-@icon-font-path:        				"../../resources/fonts/";
+@icon-font-path:        				"../resources/bootstrap/fonts/";
 @carousel-caption-color:				@default-bg;
 @carousel-control-width: 				5%;
 @carousel-indicator-active-bg:			@brand-primary;
 @carousel-indicator-border-color:		black;
 
-
 .w80{
 	width: 80%;
 }
 
-.w20{
-	width: 20%;
+.w33{
+	width: 33%;
+}
+
+.w15{
+	width: 15%;
+}
+
+.w10{
+	width: 10%;
+}
+
+
+.xs-padding{
+	@media (max-width: @screen-xs-min) {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
 }
 
 html,body{
@@ -33,6 +65,25 @@ html,body{
 	.bordertable;
 	.table-hover;
 }
+
+.eventtable{
+	.mytable;
+	td{
+		.vamiddle;
+		padding-left: 3%;
+	}
+}
+
+.daytable{
+	.bordertable;
+	.table-hover;
+	td:first-child{
+		width: 15%;
+		.txtcenter;
+		.vamiddle;
+	}
+}
+
 
 .cancelbtn{
 	span{
@@ -76,21 +127,21 @@ html,body{
 .eventblock{
 	.img-rounded;
 	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-	background: linear-gradient(to right, rgba(242,246,248,1) 0%, rgba(42,174,250,1) 71%, rgba(224,239,249,1) 100%);
+	#gradient > .horizontal(white, @brand-primary);
 }
 
 div.daynavbar{
 	
 	.well;
+	.xs-padding;
 	
 	div{
 	.make-row(0);
 
-		div{
-			.make-md-column(4);
-		}
-		
 		div.left{
+			.make-md-column(4);
+			.make-xs-column(2);
+			.xs-padding;
 			span{
 				.glyphicon;
 				.glyphicon-chevron-left;
@@ -98,24 +149,22 @@ div.daynavbar{
 		}
 	
 		div.middle{ 
-/* 		 	.input-group; */
-/* 		 	.form-group; */
-/* 		 	.date; */
-/* 			p{ */
-/* 				.txtcenter; */
-/* 				vertical-align: middle; */
-/* 				margin: 0; */
-/* 			} */
+			.make-md-column(4);
+			.make-xs-column(6);
+			.xs-padding;
 			input{
 				.form-control;
-/* 				display: inline; */
-/* 				margin-right: 2%; */
-/* 				width: 80%; */
+			}
+			span{
+/* 				.hidden-xs; */
 			}
 		}
 		
 		div.right{
-				button{
+			.make-md-column(4);
+			.make-xs-column(4);
+			.xs-padding;
+			button{
 				float: right;
 				margin-left: 2%;
 			}
@@ -181,6 +230,7 @@ content{
   	.make-row();
 	
 	div.main{
+		.well;
 		.make-md-column(12);
 		margin-bottom: 10px;
 	}
