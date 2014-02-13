@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:cc="http://java.sun.com/jsf/composite/cc" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core" template="templates/default.xhtml">
+	<ui:define name="content">
+		<h:form id="form">
+			<cc:pagination paginationController="#{eventsOverviewController}" tableID=":form:dataTable" />
+			<div class="table-responsive">
+				<h:dataTable id="dataTable" var="event" columnClasses="w33 w33 w33" value="#{eventsOverviewController.fetchCurrentPage()}" styleClass="eventtable">
+					<h:column>
+						<f:facet name="header">Name</f:facet>
+						<h:outputText value="#{event.name}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Start</f:facet>
+						<h:outputText value="#{event.startTimeStr}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">End</f:facet>
+						<h:outputText value="#{event.endTimeStr}" />
+					</h:column>
+					<f:facet name="footer">
+						Anzahl Events:  <h:outputText value="#{eventsOverviewController.totalEvents()}" />
+					</f:facet>
+				</h:dataTable>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
