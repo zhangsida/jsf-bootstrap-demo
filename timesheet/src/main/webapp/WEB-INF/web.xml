@@ -37,7 +37,7 @@
 	</servlet-mapping>
 
 	<welcome-file-list>
-		<welcome-file>testView.xhtml</welcome-file>
+		<welcome-file>dayView.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<security-role>
