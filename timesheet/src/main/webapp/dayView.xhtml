@@ -18,11 +18,11 @@
 		<div class="daynavbar">
 		<h:form prependId="false">
 			<div>
-				<div class="left">
+				<div class="left ">
 					<button jsf:action="#{dayController.previous}">
 						<span></span>
 					</button>
-				</div>	
+				</div>
 				<div class="middle input-group date" id="datepicker">
 					<input type="text" jsf:id="date" value="#{dayController.currentDate.dateStr}">
 						<f:ajax event="change" listener="#{dayController.gotoDate}" render="@all" />
@@ -30,7 +30,7 @@
 					<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
 				</div>
 				<div class="right">
-					<button jsf:action="createEditView">
+					<button jsf:action="#{dayController.newEvent}">
 						<span class="new"></span>
 					</button>
 					<button jsf:action="#{dayController.next}">
@@ -43,11 +43,11 @@
 	</ui:define>
 	<ui:define name="content">
 <!-- 		<div class="table-responsive"> -->
-		<table class="mytable">
+		<table class="daytable" >
 			<c:forEach items="#{constants.hours}" var="hour">
 				<ui:fragment rendered="#{dayController.currentDate.events.size() ne 0}">
 					<tr>
-						<td class="txtcenter vamiddle">#{hour} Uhr</td>
+						<td class="">#{hour} Uhr</td>
 						<ui:repeat var="data" value="#{dayController.currentDate.events}">
 							<ui:fragment rendered="#{data.startTime.hourOfDay eq hour}">
 								<td rowspan="#{data.durationHours()}">
@@ -65,8 +65,8 @@
 				</ui:fragment>
 				<ui:fragment rendered="#{dayController.currentDate.events.size() eq 0}">
 					<tr>
-						<td class="txtcenter vamiddle w20">#{hour} Uhr</td>
-						<td class="w80"></td>
+						<td class="">#{hour} Uhr</td>
+						<td class=""></td>
 					</tr>
 				</ui:fragment>
 			</c:forEach>
