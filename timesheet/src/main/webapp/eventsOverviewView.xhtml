@@ -3,24 +3,24 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:cc="http://java.sun.com/jsf/composite/cc" xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jsp/jstl/core" template="templates/default.xhtml">
 	<ui:define name="content">
-		<h:form id="form">
+		<h:form id="form" >
 			<cc:pagination paginationController="#{eventsOverviewController}" tableID=":form:dataTable" />
 			<div class="table-responsive">
 				<h:dataTable id="dataTable" var="event" columnClasses="w33 w33 w33" value="#{eventsOverviewController.fetchCurrentPage()}" styleClass="eventtable">
 					<h:column>
 						<f:facet name="header">Name</f:facet>
-						<h:outputText value="#{event.name}" />
+						#{event.name}
 					</h:column>
 					<h:column>
 						<f:facet name="header">Start</f:facet>
-						<h:outputText value="#{event.startTimeStr}" />
+						#{event.startTimeStr}
 					</h:column>
 					<h:column>
 						<f:facet name="header">End</f:facet>
-						<h:outputText value="#{event.endTimeStr}" />
+						#{event.endTimeStr}
 					</h:column>
 					<f:facet name="footer">
-						Anzahl Events:  <h:outputText value="#{eventsOverviewController.totalEvents()}" />
+						Anzahl Events:  #{eventsOverviewController.totalEvents()}
 					</f:facet>
 				</h:dataTable>
 			</div>
