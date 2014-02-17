@@ -15,36 +15,41 @@
 	<h:outputStylesheet library="css" name="main.css" />
 </h:head>
 <h:body>
+
 	<div class="container">
 		<!-- 		<ui:include src="carousel.xhtml" /> -->
-		<nav class="navbar navbar-default" role="navigation">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse">
-				<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
-			</button>
+<!-- 		<nav class="navbar navbar-default" role="navigation"> -->
+<!-- 		<div class="navbar-header"> -->
+<!-- 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse"> -->
+<!-- 				<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> -->
+<!-- 			</button> -->
 			<!--     <a class="navbar-brand" href="#">Brand</a> -->
-		</div>
+<!-- 		</div> -->
 		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-navbar-collapse">
-			<ul class="nav navbar-nav">
-				<li class="#{'x' eq '' ? 'active' : ''}"><h:link outcome="index" value="Jänner" /></li>
-				<li class="#{'x' eq '' ? 'active' : ''}"><h:link outcome="index" value="Februar" /></li>
-				<li class="#{'x' eq '' ? 'active' : ''}"><h:link outcome="index" value="März" /></li>
-				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="April" /></li>
-				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Mai" /></li>
-				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Juni" /></li>
-				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Juli" /></li>
-				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="August" /></li>
-				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="September" /></li>
-				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Oktober" /></li>
-				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="November" /></li>
-				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Dezember" /></li>
-			</ul>
-		</div>
-		</nav>
-		<ui:insert name="navbar">
-        </ui:insert>
+<!-- 		<div class="collapse navbar-collapse" id="bs-navbar-collapse"> -->
+<!-- 			<ul class="nav navbar-nav"> -->
+<!-- 				<li class="#{'x' eq '' ? 'active' : ''}"><h:link outcome="index" value="Jänner" /></li> -->
+<!-- 				<li class="#{'x' eq '' ? 'active' : ''}"><h:link outcome="index" value="Februar" /></li> -->
+<!-- 				<li class="#{'x' eq '' ? 'active' : ''}"><h:link outcome="index" value="März" /></li> -->
+<!-- 				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="April" /></li> -->
+<!-- 				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Mai" /></li> -->
+<!-- 				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Juni" /></li> -->
+<!-- 				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Juli" /></li> -->
+<!-- 				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="August" /></li> -->
+<!-- 				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="September" /></li> -->
+<!-- 				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Oktober" /></li> -->
+<!-- 				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="November" /></li> -->
+<!-- 				<li class="#{'x'eq '' ? 'active' : ''}"><h:link outcome="index" value="Dezember" /></li> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
+<!-- 		</nav> -->
+<!-- 		<ui:insert name="navbar"> -->
+<!--         </ui:insert> -->
 		<content> <!-- Content -->
+			<ul class="nav nav-tabs">
+			  <li class="#{param['active'] eq 'day' or param['active'] eq null ? 'active' : ''}"><a href="#{constants.navDayview}?active=day">Tagesübersicht</a></li>
+			  <li class="#{param['active'] eq 'overview' ? 'active' : ''}"><a href="#{constants.navEventsOverview}?active=overview">Gesamtübersicht</a></li>
+			</ul>
 			<div class="main">
 				<ui:insert name="content">
 	                    [Template content will be inserted here]
@@ -56,5 +61,6 @@
 		<p id="footer">Bootstrap rocks!</p>
 		</fcol> </row>
 	</div>
+<ui:debug hotkey="l"/>
 </h:body>
 </html>
