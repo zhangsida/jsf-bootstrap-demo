@@ -15,6 +15,15 @@
 	margin: 0 auto; 
 }
 
+.nav-tabs > li:not(.active) > a{
+	background-color: @nav-tabs-active-link-hover-bg;
+	opacity: 0.4;
+	&:hover, &:focus{
+		opacity: 1;
+		background-color: darken(@nav-tabs-active-link-hover-bg, 8%);
+	}
+}
+
 .form-control{
 	max-width: 300px;
 }
