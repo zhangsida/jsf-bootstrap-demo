@@ -80,6 +80,7 @@ public class DayController {
 
 	@Transactional()
 	public void previous() {
+		LOGGER.debug("previous called");
 		findorCreateDate(currentDate.getDate().minusDays(1));
 	}
 

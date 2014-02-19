@@ -20,11 +20,7 @@ public class Date {
 	@Indexed(indexName = "date", unique = true)
 	private LocalDate date;
 
-	// @Indexed(unique = true)
-	// private String dateStr;
-
 	@RelatedTo(direction = Direction.OUTGOING, type = "eventsToDay")
-	// @Fetch
 	private Collection<Event> events;
 
 	public long getId() {

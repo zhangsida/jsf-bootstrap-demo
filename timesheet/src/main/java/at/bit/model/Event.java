@@ -2,9 +2,12 @@ package at.bit.model;
 
 import org.joda.time.Duration;
 import org.joda.time.LocalTime;
+import org.neo4j.graphdb.Direction;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 
 import at.bit.spring.scope.Constants;
 
@@ -17,8 +20,13 @@ public class Event {
 	@Indexed
 	private String name;
 
+	@RelatedTo(direction = Direction.INCOMING, type = "eventsToDay")
+	@Fetch
+	private Date date;
+
 	@Indexed
 	private LocalTime startTime = new LocalTime();
+
 	@Indexed
 	private LocalTime endTime = new LocalTime();
 
@@ -84,6 +92,14 @@ public class Event {
 
 	public void setEndTime(final LocalTime endTime) {
 		this.endTime = endTime;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(final Date date) {
+		this.date = date;
 	}
 
 	@Override
