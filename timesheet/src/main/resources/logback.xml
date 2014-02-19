@@ -9,6 +9,7 @@
   </appender>
 
   <logger name="at.bit" level="DEBUG" />
+  <logger name="org.springframework.data.neo4j" level="DEBUG" />
 
   <root level="info">
     <appender-ref ref="STDOUT" />

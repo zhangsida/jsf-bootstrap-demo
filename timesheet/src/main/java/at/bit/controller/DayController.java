@@ -55,11 +55,11 @@ public class DayController {
 	@Transactional
 	public String save() {
 		currentDate.getEvents().add(event);
-		return "dayView?faces-redirect=true";
+		return "index?faces-redirect=true";
 	}
 
 	public String cancel() {
-		return "dayView?faces-redirect=true";
+		return "index?faces-redirect=true";
 	}
 
 	@Transactional

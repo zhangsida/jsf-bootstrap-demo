@@ -1,12 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	template="templates/default.xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:f="http://java.sun.com/jsf/core"  
+xmlns:p="http://xmlns.jcp.org/jsf/passthrough" 
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+template="templates/defaultTemplate.xhtml">
+
 	<ui:define name="content">
-		<h1>Welcome to Timetracker!</h1>
+
+				<h:form>
+					<ul class="nav nav-tabs">
+							<f:ajax event="click" render=":tabcontent1 :tabcontent2" >
+								<li class="active">
+							  		<h:commandLink p:href="#day" p:data-toggle="tab">Tagesübersicht
+							  			<f:setPropertyActionListener target="#{tabController.activeTab}" value="day"/>
+							  		</h:commandLink>
+							  	</li>
+							 	<li>
+							  		<h:commandLink p:href="#overview" p:data-toggle="tab">Gesamtübersicht
+							  			<f:setPropertyActionListener target="#{tabController.activeTab}" value="overview"/>
+							  		</h:commandLink>
+							  	</li>
+							</f:ajax>
+					</ul>
+				</h:form>
+				<div class="main tab-content">
+		  				<div class="tab-pane fade in active" id="day">
+		  					<h:panelGroup  id="tabcontent1" layout="block" styleClass="">
+		  						<ui:fragment rendered="#{tabController.activeTab eq 'day'}"><ui:include src="dayView.xhtml" /></ui:fragment> 
+		  					</h:panelGroup>
+		  				</div>	
+		  				<div class="tab-pane fade" id="overview">
+		  					<h:panelGroup  id="tabcontent2" layout="block" styleClass="">
+				  				<ui:fragment rendered="#{tabController.activeTab eq 'overview'}"><ui:include src="eventsOverviewView.xhtml" /></ui:fragment> 
+				  			</h:panelGroup>
+				  		</div>	
+	 			</div>
 	</ui:define>
+	
 </ui:composition>
