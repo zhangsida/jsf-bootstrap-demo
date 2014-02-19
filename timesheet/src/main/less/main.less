@@ -3,10 +3,7 @@
 @import "bootstrap/datepicker/datepicker3.less";
 @import "bootstrap-custom.less";
 
-/* @today-bg:								lighten(@btn-primary-color, 60%); */
-/* @default-bg:							#E1F7FC; */
 @brand-primary:							#8AA1BA;
-/* @body-bg:              					#F1F1F1; */
 @body-bg:              					@brand-primary;
 @default-bg:							lighten(@brand-primary, 10%);
 @btn-default-border:  					darken(@default-bg, 10%);
@@ -22,8 +19,11 @@
 @navbar-default-link-color:				@brand-primary;
 @navbar-default-link-active-color:		darken(@navbar-default-link-color, 30%);
 @navbar-default-link-hover-color:		darken(@navbar-default-link-color, 20%);
-@navbar-default-link-diabled-color:		lighten(@navbar-default-link-color, 30%);
+@navbar-default-link-disabled-color:	lighten(@navbar-default-link-color, 30%);
+@nav-tabs-border-color: 				transparent;
+ 
 @nav-tabs-active-link-hover-bg:			lighten(@brand-primary, 40%);
+@today-bg:								lighten(@brand-primary, 25%);
 
 @table-bg-hover:						white;
 @icon-font-path:        				"../resources/bootstrap/fonts/";
@@ -42,6 +42,10 @@
 
 .w33{
 	width: 33%;
+}
+
+.w25{
+	width: 25%;
 }
 
 .w15{
@@ -159,6 +163,7 @@ div.daynavbar{
 			.xs-padding;
 			input{
 				.form-control;
+				.txtcenter;
 			}
 			span{
 /* 				.hidden-xs; */

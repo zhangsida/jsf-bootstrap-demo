@@ -7,6 +7,7 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  */
+@today-bg: lighten(orange, 30%);
 
 .datepicker {
 	padding: 4px;
@@ -117,7 +118,6 @@
 		&.today:hover,
 		&.today.disabled,
 		&.today.disabled:hover {
-			@today-bg: lighten(orange, 30%);
 			.button-variant(#000, @today-bg, darken(@today-bg, 20%));
 		}
 		&.today:hover:hover { // Thank bootstrap 2.0 for this selector...
@@ -138,8 +138,7 @@
 		&.range.today:hover,
 		&.range.today.disabled,
 		&.range.today.disabled:hover {
-			@today-bg: mix(orange, @gray-lighter, 50%);
-			.button-variant(#000, @today-bg, darken(@today-bg, 20%));
+			.button-variant(#000, mix(@today-bg, @gray-lighter, 50%), darken(@today-bg, 20%));
 			border-radius: 0;
 		}
 		&.selected,
