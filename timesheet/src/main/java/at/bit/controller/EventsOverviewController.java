@@ -36,7 +36,7 @@ public class EventsOverviewController implements PaginationController<Event> {
 	@Transactional
 	private void init() {
 		pageable = new PageRequest(0, PAGE_SIZE);
-		currentPage = eventRepo.findAll(pageable);
+		currentPage = eventRepo.fetchOrderedPage(pageable);
 	}
 
 	@Transactional
@@ -56,7 +56,8 @@ public class EventsOverviewController implements PaginationController<Event> {
 
 	@Override
 	public long pages() {
-		LOGGER.debug("Event pages: " + currentPage.getTotalPages());
+		LOGGER.debug("Event pages: {} Total: {}  hasNext: {} hasPrevious: {}", currentPage.getTotalPages(), currentPage.getTotalElements(),
+				currentPage.hasNextPage(), currentPage.hasPreviousPage());
 		return currentPage.getTotalPages();
 	}
 
@@ -64,7 +65,7 @@ public class EventsOverviewController implements PaginationController<Event> {
 	@Transactional
 	public List<Event> fetchCurrentPage() {
 		pageable = new PageRequest((int) currentPageNumber - 1, PAGE_SIZE);
-		currentPage = eventRepo.findAll(pageable);
+		currentPage = eventRepo.fetchOrderedPage(pageable);
 		return currentPage.getContent();
 	}
 
