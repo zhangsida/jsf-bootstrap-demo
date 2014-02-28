@@ -27,7 +27,8 @@ xmlns:composite="http://java.sun.com/jsf/composite">
 				<h:commandLink href="#" value="#{counter}">
 					<f:setPropertyActionListener target="#{cc.attrs.paginationController.currentPage}" value="#{counter}" />
 					<f:ajax render="paginationCC #{cc.attrs.tableID}"/>
-				</h:commandLink></li>
+				</h:commandLink>
+			</li>
 		</c:forEach>
 		<li class="#{cc.attrs.paginationController.currentPage eq cc.attrs.paginationController.pages() ? 'disabled' : ''}">
 			<h:commandLink value="&#187;" actionListener="#{cc.attrs.paginationController.nextPage()}"
