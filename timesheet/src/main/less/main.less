@@ -90,6 +90,10 @@ html,body{
 		width: 15%;
 		.txtcenter;
 		.vamiddle;
+		min-width: 65px;
+	}
+	td{
+		min-width: 100px;
 	}
 }
 
@@ -164,9 +168,14 @@ div.daynavbar{
 			input{
 				.form-control;
 				.txtcenter;
+				&:hover{
+					cursor: pointer;
+				}
 			}
 			span{
-/* 				.hidden-xs; */
+				@media (max-width: @screen-xs-min) {
+				.hidden;
+				}
 			}
 		}
 		
