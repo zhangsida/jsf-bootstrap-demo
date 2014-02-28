@@ -17,6 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 import at.bit.model.Event;
 import at.bit.repository.EventRepository;
 
+/**
+ * Implementation of the PaginationController. Uses spring data pagination
+ * mechanisms.
+ * 
+ * @author pbayer
+ * 
+ */
 @Component
 @Scope(value = "view")
 public class EventsOverviewController implements PaginationController<Event> {
