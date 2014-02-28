@@ -5,25 +5,35 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough" 
+	xmlns:cc="http://java.sun.com/jsf/composite/cc" 
 	template="templates/defaultTemplate.xhtml">
+	
 	<ui:define name="content">
-	 	<h:form styleClass="well">
+	#{beforeValidator}
+	 	<h:form styleClass="well form" prependId="false">
 			<div class="form-group"> 
 				<label for="name">Name:</label> 
-				<input type="text" class="form-control" id="name" placeholder="Enter name" jsf:value="#{dayController.event.name}"/>
+				<input type="text" class="form-control" id="name" placeholder="Enter name" jsf:value="#{dayController.event.name}" p:placeholder="Name des Events"/>
+				<cc:bsAlert inputId="name"/>	
 			</div>
 			<div class="form-group">
 				<label for="start">Start time:</label> 
-				<input type="text" class="form-control" id="start" placeholder="Enter start" jsf:value="#{dayController.event.startTimeStr}"/>
+				<input type="text" id="start" class="form-control" placeholder="Enter start" jsf:value="#{dayController.event.startTime}" jsf:converter="#{timeConverter}">
+					<f:validator validatorId="beforeValidator"/>
+					<f:attribute name="otherValue" value="#{end}"/>
+				</input>
+				<cc:bsAlert inputId="start"/>	
 			</div>
 			<div class="form-group">
 				<label for="end">End time:</label> 
-				<input type="text" class="form-control" id="end" placeholder="Enter end" jsf:value="#{dayController.event.endTimeStr}"/>
+				<input type="text" id="end" class="form-control" jsf:binding="#{end}" placeholder="Enter end" jsf:value="#{dayController.event.endTime}" jsf:converter="#{timeConverter}"/>
+				<cc:bsAlert inputId="end"/>	
 			</div>
 			<button class="savebtn" jsf:action="#{dayController.save}">
 				<span></span><div>Save</div>
 			</button>
-			<button class="cancelbtn" jsf:action="#{dayController.cancel}">
+			<button class="cancelbtn" jsf:action="#{dayController.cancel}" jsf:immediate="true">
 				<span></span><div>Cancel</div>
 			</button>
 		</h:form>
