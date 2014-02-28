@@ -1,5 +1,7 @@
 /* BOOTSTRAP STUFF */
 
+@my-form-max-width:	300px;
+
 .input-group-addon{ 
 	.btn-styles(@btn-default-bg); 
 	text-shadow: 0 1px 0 #fff; 
@@ -25,7 +27,14 @@
 }
 
 .form-control{
-	max-width: 300px;
+	max-width: @my-form-max-width;
+}
+
+.myAlert{
+	.alert;
+	.alert-danger;
+	.alert-dismissable;
+	max-width: @my-form-max-width;
 }
 
 .jumbotron{
