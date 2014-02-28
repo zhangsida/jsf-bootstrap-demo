@@ -1,5 +1,8 @@
 package at.bit.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.joda.time.Duration;
 import org.joda.time.LocalTime;
 import org.neo4j.graphdb.Direction;
@@ -18,16 +21,20 @@ public class Event {
 	private Long id;
 
 	@Indexed
+	@Size(min = 1, message = "{event.notEmpty}")
+	@NotNull(message = "{event.notEmpty}")
 	private String name;
 
-	@RelatedTo(direction = Direction.INCOMING, type = "eventsToDay")
+	@RelatedTo(direction = Direction.INCOMING, type = "{event.notEmpty}")
 	@Fetch
 	private Date date;
 
 	@Indexed
+	@NotNull
 	private LocalTime startTime = new LocalTime();
 
 	@Indexed
+	@NotNull
 	private LocalTime endTime = new LocalTime();
 
 	public long durationMinutes() {
