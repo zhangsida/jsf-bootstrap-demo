@@ -1,142 +1,158 @@
 package at.bit.model;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.LocalTime;
-import org.neo4j.graphdb.Direction;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.neo4j.annotation.Fetch;
-import org.springframework.data.neo4j.annotation.Indexed;
-import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.data.neo4j.annotation.RelatedTo;
 
-import at.bit.spring.scope.Constants;
-
-@NodeEntity
+@Entity
+@Table(name="event_tbl")
 public class Event {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 
-	@Indexed
-	@Size(min = 1, message = "{event.notEmpty}")
-	@NotNull(message = "{event.notEmpty}")
 	private String name;
 
-	@RelatedTo(direction = Direction.INCOMING, type = "{event.notEmpty}")
-	@Fetch
-	private Date date;
 
-	@Indexed
 	@NotNull
-	private LocalTime startTime = new LocalTime();
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="start_time")
+	private Date startTime;
 
-	@Indexed
 	@NotNull
-	private LocalTime endTime = new LocalTime();
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="end_time")
+	private Date endTime;
 
-	public long durationMinutes() {
-		return Duration.millis(endTime.getMillisOfDay() - startTime.getMillisOfDay()).getStandardMinutes();
-	}
 
-	public long durationHours() {
-		long minutes = durationMinutes();
-		Double durationHours = Math.floor(minutes / 60d);
-		if (startTime.getMinuteOfHour() > endTime.getMinuteOfHour()) {
-			durationHours++;
-		}
-		if (endTime.getMinuteOfHour() != 0) {
-			durationHours++;
-		}
-		return durationHours.longValue();
-	}
-
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(final long id) {
+	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public LocalTime getStartTime() {
-		return startTime;
-	}
-
-	public String getStartTimeStr() {
-		return getStartTime().toString(Constants.TIME_FORMATTER);
-	}
-
-	public void setStartTimeStr(final String startTime) {
-		this.setStartTime(LocalTime.parse(startTime, Constants.TIME_FORMATTER));
-	}
-
-	public LocalTime getEndTime() {
-		return endTime;
-	}
-
-	public String getEndTimeStr() {
-		return getEndTime().toString(Constants.TIME_FORMATTER);
-	}
-
-	public void setEndTimeStr(final String endTime) {
-		this.setEndTime(LocalTime.parse(endTime, Constants.TIME_FORMATTER));
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(final String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void setStartTime(final LocalTime startTime) {
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
-	public void setEndTime(final LocalTime endTime) {
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 
-	public Date getDate() {
-		return date;
+	public void withStartDateTime(DateTime startDTTime) {
+		setStartTime(startDTTime.toDate());
 	}
 
-	public void setDate(final Date date) {
-		this.date = date;
+	public void withEndDateTime(DateTime endDTTime) {
+		setEndTime(endDTTime.toDate());
+	}
+
+	public DateTime startDateTime() {
+		return new DateTime(getStartTime());
+	}
+	
+	public DateTime endDateTime() {
+		return new DateTime(getEndTime());
+	}
+
+	public LocalTime getStartDateTime() {
+		return new DateTime(getStartTime()).toLocalTime();
+	}
+	
+	public LocalTime getEndDateTime() {
+		return new DateTime(getEndTime()).toLocalTime();
+	}
+
+	public long durationHours() {
+		return new Duration(new DateTime(getStartTime()), new DateTime(getEndTime())).getStandardHours();
+	}
+
+	public long durationMinutes() {
+		return new Duration(new DateTime(getStartTime()), new DateTime(getEndTime())).getStandardMinutes();
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((startTime == null) ? 0 : startTime.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) {
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Event other = (Event) obj;
-		if (id == null) {
-			if (other.id != null) {
+		if (endTime == null) {
+			if (other.endTime != null)
 				return false;
-			}
-		} else if (!id.equals(other.id)) {
+		} else if (!endTime.equals(other.endTime))
 			return false;
-		}
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (startTime == null) {
+			if (other.startTime != null)
+				return false;
+		} else if (!startTime.equals(other.startTime))
+			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Event [id=").append(id).append(", name=").append(name)
+				.append(", startTime=").append(startTime).append(", endTime=")
+				.append(endTime).append("]");
+		return builder.toString();
 	}
 
 }

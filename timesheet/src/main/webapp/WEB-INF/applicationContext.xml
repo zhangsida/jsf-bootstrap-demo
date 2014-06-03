@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:neo4j="http://www.springframework.org/schema/data/neo4j" xmlns:repository="http://www.springframework.org/schema/data/repository"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx" 
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-		http://www.springframework.org/schema/data/neo4j http://www.springframework.org/schema/data/neo4j/spring-neo4j-2.2.xsd
-		http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.6.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+		
 	<!-- Beans for all profiles -->
-	<beans>
+	<!-- 
 		<tx:annotation-driven proxy-target-class="true" />
+	 -->
+		
 		<context:annotation-config />
+		
 		<context:component-scan base-package="at.bit" />
-
-		<!-- neo4j -->
-		<neo4j:repositories base-package="at.bit.repository" />
+		
+		 
+		 
 		
 		<!-- beans -->
 		<bean class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
@@ -31,6 +35,10 @@
 			</property>
 		</bean>
 
+		<jdbc:embedded-database id="dataSource" type="H2">
+			<jdbc:script location="classpath:create-db.sql"/>
+		</jdbc:embedded-database>
+
 		<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
 			<property name="scopes">
 				<map>
@@ -41,11 +49,15 @@
 			</property>
 		</bean>
 
-	</beans>
+		<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        	<property name="dataSource" ref="dataSource"/>
+        	<property name="persistenceUnitName" value="timesheet"/>
+    	</bean>
 
-	<!-- Dont use db for tests -->
-	<beans profile="!test">
-		<neo4j:config base-package="at.bit.model" storeDirectory="C:\dev\db\timesheet\" />
-	</beans>
 
+    	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        	<property name="entityManagerFactory" ref="entityManagerFactory"/>
+    	</bean>
+		<jpa:repositories base-package="at.bit.repository"></jpa:repositories>
+	
 </beans>

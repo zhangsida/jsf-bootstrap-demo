@@ -19,7 +19,7 @@ public class BeforeValidator implements Validator {
 
 	@Override
 	public void validate(final FacesContext context, final UIComponent component, final Object value) throws ValidatorException {
-		Object otherValue = component.getAttributes().get("otherValue");
+		Object otherValue = component.getAttributes().get("end");
 		if (otherValue == null || otherValue instanceof UIInput == false) {
 			LOGGER.error("Attribute 'otherValue' missing or invalid for beforeValidator!");
 			return;

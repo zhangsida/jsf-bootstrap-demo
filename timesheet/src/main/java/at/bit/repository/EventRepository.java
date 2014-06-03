@@ -1,23 +1,27 @@
 package at.bit.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.neo4j.annotation.Query;
-import org.springframework.data.neo4j.repository.GraphRepository;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import at.bit.model.Event;
-
-public interface EventRepository extends GraphRepository<Event> {
+/**
+ * EventRepository
+ * 
+ * @author christian.laboranowitsch@bridging-it.de
+ *
+ */
+public interface EventRepository extends JpaRepository<Event, Long> {
 
 	/**
-	 * Custom pagination query, since we want to order by date which isnt a
-	 * direct property of Events
+	 * Finds Dates between a given date
+	 * must be midnight of the day you are looking for and midnight the next day
 	 * 
-	 * @param page
-	 *            the page to fetch
-	 * @return the current page
+	 * @param start
+	 * @param end
+	 * @return
 	 */
-	@Query(value = "START event=node:__types__(className='at.bit.model.Event') MATCH  event<-[:eventsToDay]-day RETURN event ORDER BY day.date DESC", countQuery = "START event=node:__types__(className='at.bit.model.Event') RETURN count(event)")
-	public Page<Event> fetchOrderedPage(Pageable page);
+	List<Event> findByStartTimeGreaterThanEqualAndStartTimeLessThan(Date start, Date end);
 
 }

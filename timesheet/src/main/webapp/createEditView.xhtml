@@ -9,25 +9,24 @@
 	xmlns:cc="http://java.sun.com/jsf/composite/cc" 
 	template="templates/defaultTemplate.xhtml">
 	
-	<ui:define name="content">
-	#{beforeValidator}
+	<ui:define name="content">l
 	 	<h:form styleClass="well form" prependId="false">
 			<div class="form-group"> 
 				<label for="name">Name:</label> 
-				<input type="text" class="form-control" id="name" placeholder="Enter name" jsf:value="#{dayController.event.name}" p:placeholder="Name des Events"/>
+				<input type="text" class="form-control" id="name" placeholder="Enter name" jsf:value="#{dayController.name}" p:placeholder="Name des Events"/>
 				<cc:bsAlert inputId="name"/>	
 			</div>
 			<div class="form-group">
-				<label for="start">Start time:</label> 
-				<input type="text" id="start" class="form-control" placeholder="Enter start" jsf:value="#{dayController.event.startTime}" jsf:converter="#{timeConverter}">
+				<label for="start">Start Zeit:</label> 
+				<input type="text" id="start" class="form-control" p:placeholder="Enter start" jsf:value="#{dayController.startTime}" jsf:converter="#{timeConverter}">
 					<f:validator validatorId="beforeValidator"/>
-					<f:attribute name="otherValue" value="#{end}"/>
+					<f:attribute name="end" value="#{end}"/>
 				</input>
 				<cc:bsAlert inputId="start"/>	
 			</div>
 			<div class="form-group">
-				<label for="end">End time:</label> 
-				<input type="text" id="end" class="form-control" jsf:binding="#{end}" placeholder="Enter end" jsf:value="#{dayController.event.endTime}" jsf:converter="#{timeConverter}"/>
+				<label for="end">End Zeit:</label> 
+				<input type="text" id="end" class="form-control" jsf:binding="#{end}" p:placeholder="Enter end" jsf:value="#{dayController.endTime}" jsf:converter="#{timeConverter}"/>
 				<cc:bsAlert inputId="end"/>	
 			</div>
 			<button class="savebtn" jsf:action="#{dayController.save}">

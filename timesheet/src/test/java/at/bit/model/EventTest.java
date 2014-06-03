@@ -2,52 +2,121 @@ package at.bit.model;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import javax.validation.ValidationException;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import at.bit.common.DateHelper;
 import at.bit.repository.EventRepository;
+import de.bit.timesheet.ITimesheetTestConstants;
+
+/**
+ * Tests event repository
+ * 
+ * @author philipp.bayer@bridging-it.de
+ * @author christian.laboranowitsch@bridging-it.de
+ */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/testContext.xml")
-@ActiveProfiles("test")
-public class EventTest {
-
-	private final String testdata[][] = { { "15:00", "16:00", "1" }, { "15:00", "16:01", "2" }, { "15:20", "16:20", "2" }, { "15:20", "18:20", "4" },
-			{ "15:20", "16:21", "2" }, { "15:20", "17:21", "3" }, { "15:40", "16:20", "2" }, { "15:40", "17:20", "3" }, { "15:20", "17:40", "3" }, };
+@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/applicationContext.xml"})
+public class EventTest implements ITimesheetTestConstants {
 
 	@Autowired
-	private EventRepository eventRepo;
+	private EventRepository eventRepository;
 
+	/**
+	 * Testing of bean validation
+	 */
 	@Test(expected = ValidationException.class)
 	@Transactional
-	public void testBeanValidationNoName() {
+	public void testBeanValidationEmptyEvent() {
 		Event e = new Event();
-		eventRepo.save(e);
+		eventRepository.save(e);
 	}
 
-	@Test()
-	@Transactional
-	public void testBeanValidationOK() {
-		Event e = new Event();
-		e.setName("safdasf");
-		eventRepo.save(e);
-	}
-
+	/**
+	 * Test saving and reading back of one Event 
+	 */
 	@Test
-	public void testDurationHours() throws Exception {
-		Event ev = new Event();
-		for (String[] test : testdata) {
-			ev.setStartTimeStr(test[0]);
-			ev.setEndTimeStr(test[1]);
-			assertEquals(String.format("Start:%s End:%s", test[0], test[1]), Long.parseLong(test[2]), ev.durationHours());
-		}
+	@Transactional
+	public void testEventSave() {
+		
+
+		eventRepository.save(createEvent(FMT.parseDateTime(_12_03_2014_13_00), FMT.parseDateTime(_12_03_2014_14_00)));
+		List<Event> eventList = eventRepository.findAll();
+		
+		assertEquals(EVENT_NAME, eventList.get(0).getName());
+		assertEquals(FMT.parseDateTime(_12_03_2014_13_00), eventList.get(0).startDateTime());
+		assertEquals(FMT.parseDateTime(_12_03_2014_14_00), eventList.get(0).endDateTime());
+		
 	}
+
+	/**
+	 * Test saving and reading back with finder 
+	 */
+	@Test
+	@Transactional
+	public void testEventSaveAndReadBack() {
+		
+
+		eventRepository.save(createEvent(FMT.parseDateTime(_11_03_2014_13_00), FMT.parseDateTime(_11_03_2014_14_00)));		
+		eventRepository.save(createEvent(FMT.parseDateTime(_12_03_2014_13_00), FMT.parseDateTime(_12_03_2014_14_00)));
+		eventRepository.save(createEvent(FMT.parseDateTime(_13_03_2014_13_00), FMT.parseDateTime(_13_03_2014_14_00)));		
+		
+		List<Event> eventList = eventRepository.findByStartTimeGreaterThanEqualAndStartTimeLessThan(DateHelper.createMidnightOfToday(LD_FMT.parseLocalDate(_12_03_2014)), 
+				DateHelper.createMidnightOfNextDay(LD_FMT.parseLocalDate(_12_03_2014)));
+		
+		assertEquals(1, eventList.size());
+		assertEquals(EVENT_NAME, eventList.get(0).getName());
+		assertEquals(FMT.parseDateTime(_12_03_2014_13_00), eventList.get(0).startDateTime());
+		assertEquals(FMT.parseDateTime(_12_03_2014_14_00), eventList.get(0).endDateTime());
+		
+	}
+	/**
+	 * Test saving and reading back with finder border 
+	 */
+	@Test
+	@Transactional
+	public void testEventSaveAndReadBackBorder() {
+		
+
+		eventRepository.save(createEvent(FMT.parseDateTime(_11_03_2014_13_00), FMT.parseDateTime(_11_03_2014_14_00)));		
+		eventRepository.save(createEvent(FMT.parseDateTime(_12_03_2014_00_00), FMT.parseDateTime(_12_03_2014_01_00)));
+		eventRepository.save(createEvent(FMT.parseDateTime(_13_03_2014_00_00), FMT.parseDateTime(_13_03_2014_01_00)));		
+		
+		List<Event> eventList = eventRepository.findByStartTimeGreaterThanEqualAndStartTimeLessThan(DateHelper.createMidnightOfToday(LD_FMT.parseLocalDate(_12_03_2014)), 
+				DateHelper.createMidnightOfNextDay(LD_FMT.parseLocalDate(_12_03_2014)));
+		
+		assertEquals(1, eventList.size());
+		assertEquals(EVENT_NAME, eventList.get(0).getName());
+		assertEquals(FMT.parseDateTime(_12_03_2014_00_00), eventList.get(0).startDateTime());
+		assertEquals(FMT.parseDateTime(_12_03_2014_01_00), eventList.get(0).endDateTime());
+		
+	}
+	
+	private Event createEvent(DateTime start, DateTime end) {
+		Event e = new Event();
+		e.setName(EVENT_NAME);
+		e.withStartDateTime(start);
+		e.withEndDateTime(end);
+		return e;
+	}
+
+	public EventRepository getEventRepository() {
+		return eventRepository;
+	}
+
+	public void setEventRepository(EventRepository eventRepository) {
+		this.eventRepository = eventRepository;
+	}
+
 
 }
