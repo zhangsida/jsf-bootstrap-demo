@@ -2,8 +2,15 @@ package at.bit.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ComponentSystemEvent;
+
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.slf4j.Logger;
@@ -11,10 +18,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
 import at.bit.common.DateHelper;
 import at.bit.model.Event;
 import at.bit.repository.EventRepository;
 
+/**
+ * JSF Controller handling the presentation and maintenance of Events. 
+ * 
+ * @author philipp.bayer@bridging-it.de
+ * @author christian.laboranowitsch@bridging-it.de
+ *
+ */
 @Controller
 @Scope(value = "session")
 public class DayController {
@@ -24,7 +39,6 @@ public class DayController {
 
 	@Autowired
 	private EventRepository eventRepo;
-
 	private LocalDate selectedDate;
 	private LocalTime startTime;
 	private LocalTime endTime;
@@ -44,13 +58,11 @@ public class DayController {
 	}
 
 	public String newEvent() {
-//		event = new Event();
-//		LOGGER.debug("New Event");
-//		event.setEndTime(event.getEndTime().plusHours(1));
 		return "createEditView?faces-redirect=true";
 	}
 
 	public String save() {
+
 		Event event = new Event();
 		event.setStartTime(selectedDate.toDateTime(startTime).toDate());
 		event.setEndTime(selectedDate.toDateTime(endTime).toDate());
@@ -58,6 +70,7 @@ public class DayController {
 		eventRepo.save(event);
 		events.add(event);
 		resetData();
+		
 		return "index?faces-redirect=true";
 	}
 
@@ -133,4 +146,35 @@ public class DayController {
 		this.name = name;
 	}
 
+	public void validateTimeInput(ComponentSystemEvent event) {
+		
+		  FacesContext fc = FacesContext.getCurrentInstance();
+		  FacesMessage msg;
+		  UIComponent components = event.getComponent();
+	 
+		  // get start
+		  UIInput start = (UIInput) components.findComponent("start");
+		  LocalTime startValue = (LocalTime) start.getValue();
+		  if(startValue == null) {
+			  fc.renderResponse();
+			  return;
+		  }
+		  LOGGER.debug(startValue.toString());
+		  
+		  // get end
+		  UIInput end = (UIInput) components.findComponent("end");
+		  LocalTime endValue = (LocalTime) end.getValue();
+		  if(endValue == null) {
+			  fc.renderResponse();
+			  return;
+		  }
+		  LOGGER.debug(endValue.toString());
+		  
+		  if(endValue.isBefore(startValue)) {
+				msg = new FacesMessage("Die Endzeit darf nicht vor der Startzeit liegen.");
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+				fc.addMessage(end.getClientId(), msg);
+				fc.renderResponse();
+		  }
+	}
 }
