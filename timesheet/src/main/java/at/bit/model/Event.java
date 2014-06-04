@@ -1,7 +1,6 @@
 package at.bit.model;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,11 +10,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.LocalTime;
 
+/**
+ * Event Entity ORM 
+ * 
+ * @author christian.laboranowitsch@bridging-it.de
+ *
+ */
 @Entity
 @Table(name="event_tbl")
 public class Event {
