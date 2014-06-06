@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import at.bit.model.Event;
 import at.bit.repository.EventRepository;
@@ -40,17 +39,16 @@ public class EventsOverviewController implements PaginationController<Event> {
 	private long currentPageNumber = 1;
 
 	@PostConstruct
-//	@Transactional
+	// @Transactional
 	private void init() {
 		pageable = new PageRequest(0, PAGE_SIZE);
-//		currentPage = eventRepo.fetchOrderedPage(pageable);
+		// currentPage = eventRepo.fetchOrderedPage(pageable);
 		currentPage = eventRepo.findAll(pageable);
 	}
 
-//	@Transactional
+	// @Transactional
 	public long totalEvents() {
 		return eventRepo.count();
-//		return eventRepo.count();
 	}
 
 	@Override
@@ -71,10 +69,10 @@ public class EventsOverviewController implements PaginationController<Event> {
 	}
 
 	@Override
-//	@Transactional
+	// @Transactional
 	public List<Event> fetchCurrentPage() {
 		pageable = new PageRequest((int) currentPageNumber - 1, PAGE_SIZE);
-//		currentPage = eventRepo.fetchOrderedPage(pageable);
+		// currentPage = eventRepo.fetchOrderedPage(pageable);
 		currentPage = eventRepo.findAll(pageable);
 		return currentPage.getContent();
 	}
