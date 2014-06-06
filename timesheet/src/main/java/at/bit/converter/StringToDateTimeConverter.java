@@ -3,7 +3,7 @@ package at.bit.converter;
 import org.joda.time.LocalDate;
 import org.springframework.core.convert.converter.Converter;
 
-import at.bit.spring.scope.Constants;
+import at.bit.common.Constants;
 
 public class StringToDateTimeConverter implements Converter<String, LocalDate> {
 

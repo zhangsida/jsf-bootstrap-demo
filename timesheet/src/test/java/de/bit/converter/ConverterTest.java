@@ -10,8 +10,8 @@ import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 import de.bit.timesheet.ITimesheetTestConstants;
+import at.bit.common.Constants;
 import at.bit.converter.StringToDateTimeConverter2;
-import at.bit.spring.scope.Constants;
 
 /**
  * @author claboran

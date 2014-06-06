@@ -3,7 +3,7 @@ package at.bit.converter;
 import org.joda.time.LocalTime;
 import org.springframework.core.convert.converter.Converter;
 
-import at.bit.spring.scope.Constants;
+import at.bit.common.Constants;
 
 public class StringToTimeConverter implements Converter<String, LocalTime> {
 
