@@ -26,7 +26,7 @@ import de.bit.timesheet.ITimesheetTestConstants;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/applicationContext.xml"})
+@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/applicationContext.xml" })
 public class EventTest implements ITimesheetTestConstants {
 
 	@Autowired
@@ -43,70 +43,70 @@ public class EventTest implements ITimesheetTestConstants {
 	}
 
 	/**
-	 * Test saving and reading back of one Event 
+	 * Test saving and reading back of one Event
 	 */
 	@Test
 	@Transactional
 	public void testEventSave() {
-		
 
 		eventRepository.save(createEvent(FMT.parseDateTime(_12_03_2014_13_00), FMT.parseDateTime(_12_03_2014_14_00)));
 		List<Event> eventList = eventRepository.findAll();
-		
+
 		assertEquals(EVENT_NAME, eventList.get(0).getName());
 		assertEquals(FMT.parseDateTime(_12_03_2014_13_00), eventList.get(0).startDateTime());
 		assertEquals(FMT.parseDateTime(_12_03_2014_14_00), eventList.get(0).endDateTime());
-		
+
 	}
 
 	/**
-	 * Test saving and reading back with finder 
+	 * Test saving and reading back with finder
 	 */
 	@Test
 	@Transactional
 	public void testEventSaveAndReadBack() {
-		
 
-		eventRepository.save(createEvent(FMT.parseDateTime(_11_03_2014_13_00), FMT.parseDateTime(_11_03_2014_14_00)));		
+		eventRepository.save(createEvent(FMT.parseDateTime(_11_03_2014_13_00), FMT.parseDateTime(_11_03_2014_14_00)));
 		eventRepository.save(createEvent(FMT.parseDateTime(_12_03_2014_13_00), FMT.parseDateTime(_12_03_2014_14_00)));
-		eventRepository.save(createEvent(FMT.parseDateTime(_13_03_2014_13_00), FMT.parseDateTime(_13_03_2014_14_00)));		
-		
-		List<Event> eventList = eventRepository.findByStartTimeGreaterThanEqualAndStartTimeLessThan(DateHelper.createMidnightOfToday(LD_FMT.parseLocalDate(_12_03_2014)), 
+		eventRepository.save(createEvent(FMT.parseDateTime(_13_03_2014_13_00), FMT.parseDateTime(_13_03_2014_14_00)));
+
+		List<Event> eventList = eventRepository.findByStartTimeGreaterThanEqualAndStartTimeLessThan(
+				DateHelper.createMidnightOfToday(LD_FMT.parseLocalDate(_12_03_2014)),
 				DateHelper.createMidnightOfNextDay(LD_FMT.parseLocalDate(_12_03_2014)));
-		
+
 		assertEquals(1, eventList.size());
 		assertEquals(EVENT_NAME, eventList.get(0).getName());
 		assertEquals(FMT.parseDateTime(_12_03_2014_13_00), eventList.get(0).startDateTime());
 		assertEquals(FMT.parseDateTime(_12_03_2014_14_00), eventList.get(0).endDateTime());
-		
+
 	}
+
 	/**
-	 * Test saving and reading back with finder border 
+	 * Test saving and reading back with finder border
 	 */
 	@Test
 	@Transactional
 	public void testEventSaveAndReadBackBorder() {
-		
 
-		eventRepository.save(createEvent(FMT.parseDateTime(_11_03_2014_13_00), FMT.parseDateTime(_11_03_2014_14_00)));		
+		eventRepository.save(createEvent(FMT.parseDateTime(_11_03_2014_13_00), FMT.parseDateTime(_11_03_2014_14_00)));
 		eventRepository.save(createEvent(FMT.parseDateTime(_12_03_2014_00_00), FMT.parseDateTime(_12_03_2014_01_00)));
-		eventRepository.save(createEvent(FMT.parseDateTime(_13_03_2014_00_00), FMT.parseDateTime(_13_03_2014_01_00)));		
-		
-		List<Event> eventList = eventRepository.findByStartTimeGreaterThanEqualAndStartTimeLessThan(DateHelper.createMidnightOfToday(LD_FMT.parseLocalDate(_12_03_2014)), 
+		eventRepository.save(createEvent(FMT.parseDateTime(_13_03_2014_00_00), FMT.parseDateTime(_13_03_2014_01_00)));
+
+		List<Event> eventList = eventRepository.findByStartTimeGreaterThanEqualAndStartTimeLessThan(
+				DateHelper.createMidnightOfToday(LD_FMT.parseLocalDate(_12_03_2014)),
 				DateHelper.createMidnightOfNextDay(LD_FMT.parseLocalDate(_12_03_2014)));
-		
+
 		assertEquals(1, eventList.size());
 		assertEquals(EVENT_NAME, eventList.get(0).getName());
 		assertEquals(FMT.parseDateTime(_12_03_2014_00_00), eventList.get(0).startDateTime());
 		assertEquals(FMT.parseDateTime(_12_03_2014_01_00), eventList.get(0).endDateTime());
-		
+
 	}
-	
-	private Event createEvent(DateTime start, DateTime end) {
+
+	private Event createEvent(final DateTime start, final DateTime end) {
 		Event e = new Event();
 		e.setName(EVENT_NAME);
-		e.withStartDateTime(start);
-		e.withEndDateTime(end);
+		e.setEndTime(end.toDate());
+		e.setStartTime(start.toDate());
 		return e;
 	}
 
@@ -114,9 +114,8 @@ public class EventTest implements ITimesheetTestConstants {
 		return eventRepository;
 	}
 
-	public void setEventRepository(EventRepository eventRepository) {
+	public void setEventRepository(final EventRepository eventRepository) {
 		this.eventRepository = eventRepository;
 	}
-
 
 }
