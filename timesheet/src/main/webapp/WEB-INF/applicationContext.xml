@@ -10,16 +10,9 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 		
 	<!-- Beans for all profiles -->
-	<!-- 
-		<tx:annotation-driven proxy-target-class="true" />
-	 -->
 		
 		<context:annotation-config />
-		
-		<context:component-scan base-package="at.bit" />
-		
-		 
-		 
+		<context:component-scan base-package="de.bit" />
 		
 		<!-- beans -->
 		<bean class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
@@ -27,10 +20,10 @@
 		<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
 			<property name="converters">
 				<list>
-					<bean class="at.bit.converter.DateTimeToStringConverter" />
-					<bean class="at.bit.converter.StringToDateTimeConverter" />
-					<bean class="at.bit.converter.StringToTimeConverter" />
-					<bean class="at.bit.converter.TimeToStringConverter" />
+					<bean class="de.bit.converter.DateTimeToStringConverter" />
+					<bean class="de.bit.converter.StringToDateTimeConverter" />
+					<bean class="de.bit.converter.StringToTimeConverter" />
+					<bean class="de.bit.converter.TimeToStringConverter" />
 				</list>
 			</property>
 		</bean>
@@ -43,7 +36,7 @@
 			<property name="scopes">
 				<map>
 					<entry key="view">
-						<bean class="at.bit.spring.scope.ViewScope" />
+						<bean class="de.bit.spring.scope.ViewScope" />
 					</entry>
 				</map>
 			</property>
@@ -58,6 +51,6 @@
     	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         	<property name="entityManagerFactory" ref="entityManagerFactory"/>
     	</bean>
-		<jpa:repositories base-package="at.bit.repository"></jpa:repositories>
+		<jpa:repositories base-package="de.bit.repository"></jpa:repositories>
 	
 </beans>

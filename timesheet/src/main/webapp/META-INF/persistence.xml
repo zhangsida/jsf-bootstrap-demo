@@ -4,7 +4,6 @@
     <!--Persistence Unit for H2 database-->
     <persistence-unit name="timesheet" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>at.bit.model.Event</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
