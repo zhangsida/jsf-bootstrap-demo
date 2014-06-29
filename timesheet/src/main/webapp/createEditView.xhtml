@@ -19,7 +19,7 @@
 			<div class="form-group">
 				<label for="start">Start time:</label> 
 				<input type="text" id="start" class="form-control" p:placeholder="Enter start time" jsf:value="#{dayController.event.startTimeLocal}" jsf:converter="#{timeConverter}">
-					<f:validator binding="#{beforeValidator}"/>
+					<f:validator validatorId="beforeValidator"/>
 					<f:attribute name="end" value="#{end}"/>
 				</input>
 				<cc:bsAlert inputId="start"/>	
