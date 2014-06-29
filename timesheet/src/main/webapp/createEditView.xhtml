@@ -11,28 +11,29 @@
 	
 	<ui:define name="content">
 	 	<h:form styleClass="well form" prependId="false">
-			<f:event listener="#{dayController.validateTimeInput}" type="postValidate" />
 			<div class="form-group"> 
 				<label for="name">Name:</label> 
-				<input type="text" class="form-control" id="name" placeholder="Enter name" jsf:value="#{dayController.name}" p:placeholder="Titel Eintrag"/>
+				<input type="text" class="form-control" id="name" p:placeholder="Enter name" jsf:value="#{dayController.event.name}" jsf:required="true"/>
 				<cc:bsAlert inputId="name"/>	
 			</div>
 			<div class="form-group">
-				<label for="start">Start-Zeit:</label> 
-				<input type="text" id="start" class="form-control" p:placeholder="Startzeitpunkt" jsf:value="#{dayController.startTime}" jsf:converter="#{timeConverter}">
+				<label for="start">Start time:</label> 
+				<input type="text" id="start" class="form-control" p:placeholder="Enter start time" jsf:value="#{dayController.event.startTimeLocal}" jsf:converter="#{timeConverter}">
+					<f:validator binding="#{beforeValidator}"/>
+					<f:attribute name="end" value="#{end}"/>
 				</input>
 				<cc:bsAlert inputId="start"/>	
 			</div>
 			<div class="form-group">
-				<label for="end">End-Zeit:</label> 
-				<input type="text" id="end" class="form-control" p:placeholder="Endzeitpunkt" jsf:value="#{dayController.endTime}" jsf:converter="#{timeConverter}"/>
+				<label for="end">End time:</label> 
+				<input type="text" id="end" class="form-control" jsf:binding="#{end}" p:placeholder="Enter end time" jsf:value="#{dayController.event.endTimeLocal}" jsf:converter="#{timeConverter}"/>
 				<cc:bsAlert inputId="end"/>	
 			</div>
 			<button class="savebtn" jsf:action="#{dayController.save}">
-				<span></span><div>Save</div>
+				<span></span>Save
 			</button>
 			<button class="cancelbtn" jsf:action="#{dayController.cancel}" jsf:immediate="true">
-				<span></span><div>Cancel</div>
+				<span></span>Cancel
 			</button>
 		</h:form>
 	</ui:define>
