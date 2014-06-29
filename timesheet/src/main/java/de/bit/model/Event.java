@@ -14,6 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.LocalTime;
@@ -34,7 +35,7 @@ public class Event {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@NotNull
+	@NotBlank
 	private String name;
 
 	@NotNull
@@ -47,6 +48,7 @@ public class Event {
 	@Column(name = "end_time")
 	private Date endTime;
 
+	@NotNull
 	public LocalTime getEndTimeLocal() {
 		if (endTime == null) {
 			return null;
@@ -55,6 +57,10 @@ public class Event {
 	}
 
 	public void setEndTimeLocal(final LocalTime endTime) {
+		if (endTime == null) {
+			this.endTime = null;
+			return;
+		}
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(this.endTime);
 		cal.set(Calendar.MINUTE, endTime.getMinuteOfHour());
@@ -63,6 +69,7 @@ public class Event {
 
 	}
 
+	@NotNull
 	public LocalTime getStartTimeLocal() {
 		if (startTime == null) {
 			return null;
@@ -71,6 +78,10 @@ public class Event {
 	}
 
 	public void setStartTimeLocal(final LocalTime startTime) {
+		if (startTime == null) {
+			this.startTime = null;
+			return;
+		}
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(this.startTime);
 		cal.set(Calendar.MINUTE, startTime.getMinuteOfHour());
