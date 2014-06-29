@@ -13,11 +13,9 @@ import de.bit.timesheet.ITimesheetTestConstants;
  * Tests the DateHelper
  * 
  * @author christian.laboranowitsch@bridging-it.de
- *
+ * 
  */
 public class DateHelperTest implements ITimesheetTestConstants {
-
-
 
 	/**
 	 * Tesing midnight calculation of current day
@@ -34,9 +32,9 @@ public class DateHelperTest implements ITimesheetTestConstants {
 	public void testMidnightOfNextDay() {
 		Assert.assertEquals(FMT.parseDateTime(_13_03_2014_00_00).toDate(), DateHelper.createMidnightOfNextDay(LD_FMT.parseLocalDate(_12_03_2014)));
 	}
-	
+
 	@Test
 	public void testConvertToLocalDate() {
-		Assert.assertEquals(LocalDate.parse("16/09/2014", ITimesheetConstants.UI_DATE_FORMAT_STR), DateHelper.convertLocalDateFromUiString("16/09/2014"));
+		Assert.assertEquals(LocalDate.parse("16/09/2014", Constants.DATE_FORMATTER), DateHelper.convertLocalDateFromUiString("16/09/2014"));
 	}
 }
