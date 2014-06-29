@@ -68,9 +68,7 @@ public class DayController {
 
 	@Transactional
 	public String save() {
-		// event.setName(name);
-		// event.setStartTime(selectedDate.toDateTime(startTime).toDate());
-		// event.setEndTime(selectedDate.toDateTime(endTime).toDate());
+		System.out.println("name=" + event.getName());
 		eventRepo.save(event);
 		events.add(event);
 		resetData();
