@@ -1,56 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
-		
+
 	<!-- Beans for all profiles -->
-		
-		<context:annotation-config />
-		<context:component-scan base-package="de.bit" />
-		
-		<!-- beans -->
-		<bean class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
-		<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
-			<property name="converters">
-				<list>
-					<bean class="de.bit.converter.DateTimeToStringConverter" />
-					<bean class="de.bit.converter.StringToDateTimeConverter" />
-					<bean class="de.bit.converter.StringToTimeConverter" />
-					<bean class="de.bit.converter.TimeToStringConverter" />
-				</list>
-			</property>
-		</bean>
+	<context:annotation-config />
+	<context:component-scan base-package="de.bit" />
 
-		<jdbc:embedded-database id="dataSource" type="H2">
-			<jdbc:script location="classpath:create-db.sql"/>
-		</jdbc:embedded-database>
+	<!-- beans -->
 
-		<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
-			<property name="scopes">
-				<map>
-					<entry key="view">
-						<bean class="de.bit.spring.scope.ViewScope" />
-					</entry>
-				</map>
-			</property>
-		</bean>
+	<!-- Bean Validation -->
+	<bean class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 
-		<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        	<property name="dataSource" ref="dataSource"/>
-        	<property name="persistenceUnitName" value="timesheet"/>
-    	</bean>
+	<!-- custom converters for spring -->
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="de.bit.converter.DateTimeToStringConverter" />
+				<bean class="de.bit.converter.StringToDateTimeConverter" />
+				<bean class="de.bit.converter.StringToTimeConverter" />
+				<bean class="de.bit.converter.TimeToStringConverter" />
+			</list>
+		</property>
+	</bean>
 
+	<!-- DB setup -->
+	<jdbc:embedded-database id="dataSource" type="H2">
+		<jdbc:script location="classpath:create-db.sql" />
+	</jdbc:embedded-database>
 
-    	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        	<property name="entityManagerFactory" ref="entityManagerFactory"/>
-    	</bean>
-		<jpa:repositories base-package="de.bit.repository"></jpa:repositories>
-	
+	<!-- custom jsf scope -->
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+		<property name="scopes">
+			<map>
+				<entry key="view">
+					<bean class="de.bit.spring.scope.ViewScope" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<!-- JPA -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceUnitName" value="timesheet" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- Spring Data -->
+	<jpa:repositories base-package="de.bit.repository"/>
+
 </beans>
