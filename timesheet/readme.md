@@ -5,9 +5,12 @@ wanted a lightweight framework which is as application server independent as pos
 application is the integration of JSF and Bootstrap, and the application could also have been realized with JEE.
 The Spring scopes were extended with a "view" scope, which you can find in the de.bit.spring.scope package.
 Further in the faces-config.xml the SpringBeanFacesELResolver is configured as EL resolver to make the Spring beans available
-the JSF. For validation Bean Validation is used. To validate that the startTime is greater than the endTime, a custom JSF validator
+the JSF.
+For validation Bean Validation is used. To validate that the startTime is greater than the endTime, a custom JSF validator
 is used(BeforeValidator).Persistence is achieved by using Spring Data and Hibernate. The application sets up a prefilled H2 in memory 
 database on startup.
+MyFaces was chosen as JSF implementation, since at the time of writing Mojarra had a rednering bug which impacted 
+the application(https://java.net/jira/browse/JAVASERVERFACES-3169).
 Since this is a rather basic demo application, we forewent the classic MVC pattern for simplicity's sake. Instead most
 of the logic is handled by the controllers, even persistence which should  ideally handled in the service layer.
 
