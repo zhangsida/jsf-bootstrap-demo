@@ -64,7 +64,8 @@ public class Event {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(this.endTime);
 		cal.set(Calendar.MINUTE, endTime.getMinuteOfHour());
-		cal.set(Calendar.HOUR, endTime.getHourOfDay());
+		cal.set(Calendar.HOUR_OF_DAY, endTime.getHourOfDay());
+		
 		this.endTime = cal.getTime();
 
 	}
@@ -85,7 +86,7 @@ public class Event {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(this.startTime);
 		cal.set(Calendar.MINUTE, startTime.getMinuteOfHour());
-		cal.set(Calendar.HOUR, startTime.getHourOfDay());
+		cal.set(Calendar.HOUR_OF_DAY, startTime.getHourOfDay());
 		this.startTime = cal.getTime();
 
 	}
