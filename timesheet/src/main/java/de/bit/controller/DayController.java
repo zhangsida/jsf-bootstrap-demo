@@ -66,9 +66,7 @@ public class DayController {
 		return "createEditView?faces-redirect=true";
 	}
 
-	@Transactional
 	public String save() {
-		System.out.println("name=" + event.getName());
 		eventRepo.save(event);
 		events.add(event);
 		resetData();
