@@ -50,12 +50,12 @@ public class EventTest implements ITimesheetTestConstants {
 	@Transactional
 	public void testEventSave() {
 
-		eventRepository.save(createEvent(FMT.parseDateTime(_12_03_2014_13_00), FMT.parseDateTime(_12_03_2014_14_00)));
-		List<Event> eventList = eventRepository.findAll();
+		Event ev = eventRepository.save(createEvent(FMT.parseDateTime(_12_03_2014_13_00), FMT.parseDateTime(_12_03_2014_14_00)));
+		ev = eventRepository.findOne(ev.getId());
 
-		assertEquals(EVENT_NAME, eventList.get(0).getName());
-		assertEquals(FMT.parseDateTime(_12_03_2014_13_00), eventList.get(0).startDateTime());
-		assertEquals(FMT.parseDateTime(_12_03_2014_14_00), eventList.get(0).endDateTime());
+		assertEquals(EVENT_NAME, ev.getName());
+		assertEquals(FMT.parseDateTime(_12_03_2014_13_00), ev.startDateTime());
+		assertEquals(FMT.parseDateTime(_12_03_2014_14_00), ev.endDateTime());
 
 	}
 
