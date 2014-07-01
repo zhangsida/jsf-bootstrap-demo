@@ -2,6 +2,7 @@ package de.bit.converter;
 
 import org.joda.time.LocalTime;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Controller;
 
 import de.bit.common.Constants;
 
@@ -13,6 +14,7 @@ import de.bit.common.Constants;
  * @author pbayer
  * 
  */
+@Controller
 public class TimeToStringConverter implements Converter<LocalTime, String> {
 
 	@Override
