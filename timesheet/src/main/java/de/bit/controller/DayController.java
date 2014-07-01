@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 
 import de.bit.common.DateHelper;
 import de.bit.model.Event;
@@ -66,7 +65,6 @@ public class DayController {
 		return "createEditView?faces-redirect=true";
 	}
 
-	@Transactional
 	public String save() {
 		eventRepo.save(event);
 		events.add(event);
