@@ -3,6 +3,12 @@ package de.bit.common;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+/**
+ * Commons constants used throughout the application.
+ * 
+ * @author pbayer
+ * 
+ */
 public class Constants {
 
 	public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("dd/MM/yyyy");

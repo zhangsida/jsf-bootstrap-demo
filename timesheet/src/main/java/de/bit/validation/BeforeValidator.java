@@ -12,6 +12,14 @@ import org.joda.time.base.BaseLocal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Validates two dates. The date enter into the input field with this validator
+ * must be before the other date. Both dates must be of the {@link BaseLocal}
+ * type. The other date must be passed as attribute with the name 'end' to this
+ * validator.
+ * 
+ * @author pbayer
+ */
 @FacesValidator("beforeValidator")
 public class BeforeValidator implements Validator {
 

@@ -7,6 +7,13 @@ import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
 
+/**
+ * 'ViewScoped' implentation for Spring. Stores or retrieves the annotated
+ * object into/from the ViewMap of the current view.
+ * 
+ * @author pbayer
+ * 
+ */
 public class ViewScope implements Scope {
 
 	@Override

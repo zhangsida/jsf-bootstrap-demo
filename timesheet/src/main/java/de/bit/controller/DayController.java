@@ -68,7 +68,6 @@ public class DayController {
 
 	@Transactional
 	public String save() {
-		System.out.println("name=" + event.getName());
 		eventRepo.save(event);
 		events.add(event);
 		resetData();
