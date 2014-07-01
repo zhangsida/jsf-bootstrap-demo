@@ -19,7 +19,7 @@ import de.bit.repository.EventRepository;
 /**
  * Implementation of the PaginationController. Uses spring data pagination mechanisms.
  * 
- * @author pbayer
+ * @author philipp.bayer@bridging-it.de
  * 
  */
 @Component
@@ -31,14 +31,14 @@ public class EventsOverviewController implements PaginationController<Event> {
     private static final Logger LOGGER            = LoggerFactory.getLogger(EventsOverviewController.class);
 
     @Autowired
-    private EventRepository     eventRepo;
+    private EventRepository     eventRepo; //NOPMD
 
-    private Pageable            pageable;
+    private Pageable            pageable; //NOPMD
     private Page<Event>         currentPage;
-    private long                currentPageNumber = 1;
+    private long                currentPageNumber = 1; //NOPMD
 
     @PostConstruct
-    private void init() {
+    private void init() { //NOPMD
         pageable = new PageRequest(0, PAGE_SIZE);
         currentPage = eventRepo.findAll(pageable);
     }

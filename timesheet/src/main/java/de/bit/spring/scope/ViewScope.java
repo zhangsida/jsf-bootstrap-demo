@@ -42,7 +42,7 @@ public class ViewScope implements Scope {
     }
 
     @Override
-    public void registerDestructionCallback(final String name, final Runnable callback) {
+    public void registerDestructionCallback(final String name, final Runnable callback) { //NOPMD
         // not supported
     }
 

@@ -12,15 +12,21 @@ import org.joda.time.base.BaseLocal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * JSF Before Validator
+ * 
+ * @author philipp.bayer@bridging-it.de
+ * 
+ */
 @FacesValidator("beforeValidator")
 public class BeforeValidator implements Validator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BeforeValidator.class);
 
     @Override
-    public void validate(final FacesContext context, final UIComponent component, final Object value) throws ValidatorException {
+    public void validate(final FacesContext context, final UIComponent component, final Object value) {
         Object otherValue = component.getAttributes().get("end");
-        if (otherValue == null || otherValue instanceof UIInput == false) {
+        if (otherValue == null || otherValue instanceof UIInput == false) { //NOPMD
             LOGGER.error("Attribute 'end' missing or invalid for beforeValidator!");
             return;
         }

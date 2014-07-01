@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
 import de.bit.common.DateHelper;
-import de.bit.model.Event;
 import de.bit.repository.EventRepository;
 import de.bit.timesheet.ITimesheetTestConstants;
 
@@ -53,9 +51,9 @@ public class EventTest implements ITimesheetTestConstants {
         Event ev = eventRepository.save(createEvent(FMT.parseDateTime(_12_03_2014_13_00), FMT.parseDateTime(_12_03_2014_14_00)));
         ev = eventRepository.findOne(ev.getId());
 
-        assertEquals(EVENT_NAME, ev.getName());
-        assertEquals(FMT.parseDateTime(_12_03_2014_13_00), ev.startDateTime());
-        assertEquals(FMT.parseDateTime(_12_03_2014_14_00), ev.endDateTime());
+        assertEquals(EVENT_NAME, ev.getName()); //NOPMD
+        assertEquals(FMT.parseDateTime(_12_03_2014_13_00), ev.startDateTime()); //NOPMD
+        assertEquals(FMT.parseDateTime(_12_03_2014_14_00), ev.endDateTime()); //NOPMD
 
     }
 
@@ -75,10 +73,10 @@ public class EventTest implements ITimesheetTestConstants {
                         DateHelper.createMidnightOfToday(LD_FMT.parseLocalDate(_12_03_2014)),
                         DateHelper.createMidnightOfNextDay(LD_FMT.parseLocalDate(_12_03_2014)));
 
-        assertEquals(1, eventList.size());
-        assertEquals(EVENT_NAME, eventList.get(0).getName());
-        assertEquals(FMT.parseDateTime(_12_03_2014_13_00), eventList.get(0).startDateTime());
-        assertEquals(FMT.parseDateTime(_12_03_2014_14_00), eventList.get(0).endDateTime());
+        assertEquals(1, eventList.size()); //NOPMD
+        assertEquals(EVENT_NAME, eventList.get(0).getName()); //NOPMD
+        assertEquals(FMT.parseDateTime(_12_03_2014_13_00), eventList.get(0).startDateTime()); //NOPMD
+        assertEquals(FMT.parseDateTime(_12_03_2014_14_00), eventList.get(0).endDateTime()); //NOPMD
 
     }
 
@@ -98,10 +96,10 @@ public class EventTest implements ITimesheetTestConstants {
                         DateHelper.createMidnightOfToday(LD_FMT.parseLocalDate(_12_03_2014)),
                         DateHelper.createMidnightOfNextDay(LD_FMT.parseLocalDate(_12_03_2014)));
 
-        assertEquals(1, eventList.size());
-        assertEquals(EVENT_NAME, eventList.get(0).getName());
-        assertEquals(FMT.parseDateTime(_12_03_2014_00_00), eventList.get(0).startDateTime());
-        assertEquals(FMT.parseDateTime(_12_03_2014_01_00), eventList.get(0).endDateTime());
+        assertEquals(1, eventList.size()); //NOPMD
+        assertEquals(EVENT_NAME, eventList.get(0).getName()); //NOPMD
+        assertEquals(FMT.parseDateTime(_12_03_2014_00_00), eventList.get(0).startDateTime()); //NOPMD
+        assertEquals(FMT.parseDateTime(_12_03_2014_01_00), eventList.get(0).endDateTime()); //NOPMD
 
     }
 

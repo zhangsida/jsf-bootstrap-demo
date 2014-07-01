@@ -2,12 +2,8 @@
  * 
  */
 package de.bit.common;
-
 import java.util.Date;
-
-import org.apache.myfaces.shared.util.ArrayUtils;
 import org.joda.time.DateTime;
-import org.joda.time.Hours;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
@@ -17,8 +13,12 @@ import org.joda.time.format.DateTimeFormat;
  * @author christian.laboranowitsch@bridging-it.de
  * 
  */
-public class DateHelper {
+public final class DateHelper {
 
+    /**
+     * Default constructor not needed for Utility class
+     */
+    private DateHelper() { } //NOPMD
     private static final Integer[] DAY_HOURS = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 };
 
     /**
@@ -51,22 +51,6 @@ public class DateHelper {
         return DateTimeFormat.forPattern(Constants.UI_DATE_TIME_FORMAT_STR).parseDateTime(dateStr);
     }
 
-    /**
-     * Calculates the hours of the day
-     * 
-     * @param today
-     * @return array of the hours
-     */
-    public static Integer[] getNumberOfHours(final DateTime today) {
-        DateTime start = today.withTimeAtStartOfDay();
-        int hoursOfDay = Hours.hoursBetween(start, start.plusDays(1)).getHours();
-        Integer[] hoursArray = new Integer[hoursOfDay];
-        for (int indx = 0; indx < hoursOfDay; indx++) {
-            hoursArray[indx] = start.hourOfDay().get();
-            start = start.plusHours(1);
-        }
-        return hoursArray;
-    }
 
     /**
      * returns number of day hours

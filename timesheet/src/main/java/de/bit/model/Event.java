@@ -100,7 +100,7 @@ public class Event {
     }
 
     public String getDateStr() {
-        return new SimpleDateFormat(Constants.UI_DATE_FORMAT_STR).format(startTime);
+        return new SimpleDateFormat(Constants.UI_DATE_FORMAT_STR).format(startTime); //NOPMD
     }
 
     public Long getId() {
@@ -161,7 +161,7 @@ public class Event {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
+        final int prime = 31; //NOPMD
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
@@ -191,9 +191,9 @@ public class Event {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder(); //NOPMD
         builder.append("Event [id=").append(id).append(", name=").append(name).append(", startTime=").append(startTime)
-                .append(", endTime=").append(endTime).append("]");
+                .append(", endTime=").append(endTime).append("]"); //NOPMD
         return builder.toString();
     }
 

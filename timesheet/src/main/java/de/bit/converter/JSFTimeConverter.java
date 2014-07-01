@@ -12,15 +12,21 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Strings;
-
+/**
+ * JSF Time Converter
+ * 
+ * @author philipp.bayer@bridging-it.de
+ * @author christian.laboranowitsch@bridging-it.de
+ * 
+ */
 @Component("timeConverter")
 public class JSFTimeConverter implements Converter {
 
     @Resource(name = "conversionService")
-    private ConversionService converter;
+    private ConversionService converter; //NOPMD
 
     @Override
-    public Object getAsObject(final FacesContext context, final UIComponent component, final String value) throws ConverterException {
+    public Object getAsObject(final FacesContext context, final UIComponent component, final String value) {
         if (Strings.isNullOrEmpty(value)) {
             return null;
         }
@@ -32,7 +38,7 @@ public class JSFTimeConverter implements Converter {
     }
 
     @Override
-    public String getAsString(final FacesContext context, final UIComponent component, final Object value) throws ConverterException {
+    public String getAsString(final FacesContext context, final UIComponent component, final Object value) {
         if (value == null) {
             return "";
         }

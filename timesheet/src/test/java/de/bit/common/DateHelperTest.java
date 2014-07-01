@@ -6,9 +6,6 @@ package de.bit.common;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
-
-import de.bit.common.Constants;
-import de.bit.common.DateHelper;
 import de.bit.timesheet.ITimesheetTestConstants;
 
 /**
@@ -37,6 +34,9 @@ public class DateHelperTest implements ITimesheetTestConstants {
                 DateHelper.createMidnightOfNextDay(LD_FMT.parseLocalDate(_12_03_2014)));
     }
 
+    /**
+     * Tests the conversion to local date
+     */
     @Test
     public void testConvertToLocalDate() {
         Assert.assertEquals(LocalDate.parse("16/09/2014", Constants.DATE_FORMATTER), DateHelper.convertLocalDateFromUiString("16/09/2014"));

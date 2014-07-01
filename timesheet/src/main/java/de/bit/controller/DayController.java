@@ -4,12 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ComponentSystemEvent;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -37,7 +32,7 @@ public class DayController {
     private static final Logger LOGGER = LoggerFactory.getLogger(DayController.class);
 
     @Autowired
-    private EventRepository     eventRepo;
+    private EventRepository     eventRepo; //NOPMD
     private LocalDate           selectedDate;
     private LocalTime           startTime;
     private LocalTime           endTime;
@@ -47,7 +42,7 @@ public class DayController {
     private Event               event;
 
     @PostConstruct
-    private void init() {
+    private void init() { //NOPMD
         LOGGER.debug("constructed");
         selectedDate = new LocalDate();
         updateEvents();
