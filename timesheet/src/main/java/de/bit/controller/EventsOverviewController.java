@@ -17,8 +17,7 @@ import de.bit.model.Event;
 import de.bit.repository.EventRepository;
 
 /**
- * Implementation of the PaginationController. Uses spring data pagination
- * mechanisms.
+ * Implementation of the PaginationController. Uses spring data pagination mechanisms.
  * 
  * @author pbayer
  * 
@@ -27,61 +26,60 @@ import de.bit.repository.EventRepository;
 @Scope(value = "view")
 public class EventsOverviewController implements PaginationController<Event> {
 
-	private static final int PAGE_SIZE = 5;
+    private static final int    PAGE_SIZE         = 5;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(EventsOverviewController.class);
+    private static final Logger LOGGER            = LoggerFactory.getLogger(EventsOverviewController.class);
 
-	@Autowired
-	private EventRepository eventRepo;
+    @Autowired
+    private EventRepository     eventRepo;
 
-	private Pageable pageable;
-	private Page<Event> currentPage;
-	private long currentPageNumber = 1;
+    private Pageable            pageable;
+    private Page<Event>         currentPage;
+    private long                currentPageNumber = 1;
 
-	@PostConstruct
-	private void init() {
-		pageable = new PageRequest(0, PAGE_SIZE);
-		currentPage = eventRepo.findAll(pageable);
-	}
+    @PostConstruct
+    private void init() {
+        pageable = new PageRequest(0, PAGE_SIZE);
+        currentPage = eventRepo.findAll(pageable);
+    }
 
-	public long totalEvents() {
-		return eventRepo.count();
-	}
+    public long totalEvents() {
+        return eventRepo.count();
+    }
 
-	@Override
-	public void prevPage() {
-		currentPageNumber--;
-	}
+    @Override
+    public void prevPage() {
+        currentPageNumber--;
+    }
 
-	@Override
-	public void nextPage() {
-		currentPageNumber++;
-	}
+    @Override
+    public void nextPage() {
+        currentPageNumber++;
+    }
 
-	@Override
-	public long pages() {
-		LOGGER.debug("Event pages: {} Total: {}  hasNext: {} hasPrevious: {}", currentPage.getTotalPages(), currentPage.getTotalElements(),
-				currentPage.hasNextPage(), currentPage.hasPreviousPage());
-		return currentPage.getTotalPages();
-	}
+    @Override
+    public long pages() {
+        LOGGER.debug("Event pages: {} Total: {}  hasNext: {} hasPrevious: {}", currentPage.getTotalPages(), currentPage.getTotalElements(),
+                currentPage.hasNextPage(), currentPage.hasPreviousPage());
+        return currentPage.getTotalPages();
+    }
 
-	@Override
-	// @Transactional
-	public List<Event> fetchCurrentPage() {
-		pageable = new PageRequest((int) currentPageNumber - 1, PAGE_SIZE);
-		currentPage = eventRepo.findAll(pageable);
-		return currentPage.getContent();
-	}
+    @Override
+    public List<Event> fetchCurrentPage() {
+        pageable = new PageRequest((int) currentPageNumber - 1, PAGE_SIZE);
+        currentPage = eventRepo.findAll(pageable);
+        return currentPage.getContent();
+    }
 
-	@Override
-	public long getCurrentPage() {
-		LOGGER.debug("Event current page: {}", currentPageNumber);
-		return currentPageNumber;
-	}
+    @Override
+    public long getCurrentPage() {
+        LOGGER.debug("Event current page: {}", currentPageNumber);
+        return currentPageNumber;
+    }
 
-	@Override
-	public void setCurrentPage(final long currentPage) {
-		currentPageNumber = currentPage;
-	}
+    @Override
+    public void setCurrentPage(final long currentPage) {
+        currentPageNumber = currentPage;
+    }
 
 }

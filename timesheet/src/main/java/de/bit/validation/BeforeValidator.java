@@ -15,24 +15,24 @@ import org.slf4j.LoggerFactory;
 @FacesValidator("beforeValidator")
 public class BeforeValidator implements Validator {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(BeforeValidator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BeforeValidator.class);
 
-	@Override
-	public void validate(final FacesContext context, final UIComponent component, final Object value) throws ValidatorException {
-		Object otherValue = component.getAttributes().get("end");
-		if (otherValue == null || otherValue instanceof UIInput == false) {
-			LOGGER.error("Attribute 'end' missing or invalid for beforeValidator!");
-			return;
-		}
-		String other = (String) ((UIInput) otherValue).getSubmittedValue();
-		Object otherTime = ((UIInput) otherValue).getConverter().getAsObject(context, component, other);
+    @Override
+    public void validate(final FacesContext context, final UIComponent component, final Object value) throws ValidatorException {
+        Object otherValue = component.getAttributes().get("end");
+        if (otherValue == null || otherValue instanceof UIInput == false) {
+            LOGGER.error("Attribute 'end' missing or invalid for beforeValidator!");
+            return;
+        }
+        String other = (String) ((UIInput) otherValue).getSubmittedValue();
+        Object otherTime = ((UIInput) otherValue).getConverter().getAsObject(context, component, other);
 
-		if (otherTime instanceof BaseLocal && value instanceof BaseLocal) {
-			if (!((BaseLocal) value).isBefore((BaseLocal) otherTime)) {
-				throw new ValidatorException(new FacesMessage("Das eingegebene Datum muss vor dem Wert " + other + " liegen!"));
-			}
-		} else {
-			LOGGER.error("Not both values are Partial in beforeValidator!");
-		}
-	}
+        if (otherTime instanceof BaseLocal && value instanceof BaseLocal) {
+            if (!((BaseLocal) value).isBefore((BaseLocal) otherTime)) {
+                throw new ValidatorException(new FacesMessage("Das eingegebene Datum muss vor dem Wert " + other + " liegen!"));
+            }
+        } else {
+            LOGGER.error("Not both values are Partial in beforeValidator!");
+        }
+    }
 }

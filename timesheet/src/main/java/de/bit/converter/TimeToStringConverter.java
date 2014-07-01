@@ -9,9 +9,9 @@ import de.bit.common.Constants;
 @Service
 public class TimeToStringConverter implements Converter<LocalTime, String> {
 
-	@Override
-	public String convert(final LocalTime source) {
-		return source.toString(Constants.TIME_FORMATTER);
-	}
+    @Override
+    public String convert(final LocalTime source) {
+        return source.toString(Constants.TIME_FORMATTER);
+    }
 
 }

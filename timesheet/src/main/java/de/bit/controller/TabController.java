@@ -7,14 +7,14 @@ import org.springframework.stereotype.Controller;
 @Scope(value = "view")
 public class TabController {
 
-	public String activeTab = "day";
+    public String activeTab = "day";
 
-	public String getActiveTab() {
-		return activeTab;
-	}
+    public String getActiveTab() {
+        return activeTab;
+    }
 
-	public void setActiveTab(final String activeTab) {
-		this.activeTab = activeTab;
-	}
+    public void setActiveTab(final String activeTab) {
+        this.activeTab = activeTab;
+    }
 
 }

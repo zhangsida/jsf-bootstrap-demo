@@ -34,155 +34,146 @@ import de.bit.repository.EventRepository;
 @Scope(value = "session")
 public class DayController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DayController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DayController.class);
 
-	@Autowired
-	private EventRepository eventRepo;
-	private LocalDate selectedDate;
-	private LocalTime startTime;
-	private LocalTime endTime;
-	private String name;
-	private List<Event> events = new ArrayList<Event>();
+    @Autowired
+    private EventRepository     eventRepo;
+    private LocalDate           selectedDate;
+    private LocalTime           startTime;
+    private LocalTime           endTime;
+    private String              name;
+    private List<Event>         events = new ArrayList<Event>();
 
-	private Event event;
+    private Event               event;
 
-	@PostConstruct
-	private void init() {
-		LOGGER.debug("constructed");
-		selectedDate = new LocalDate();
-		updateEvents();
-	}
+    @PostConstruct
+    private void init() {
+        LOGGER.debug("constructed");
+        selectedDate = new LocalDate();
+        updateEvents();
+    }
 
-	private void updateEvents() {
-		events = eventRepo.findByStartTimeGreaterThanEqualAndStartTimeLessThan(DateHelper.createMidnightOfToday(selectedDate),
-				DateHelper.createMidnightOfNextDay(selectedDate));
-	}
+    private void updateEvents() {
+        events =
+                eventRepo.findByStartTimeGreaterThanEqualAndStartTimeLessThan(DateHelper.createMidnightOfToday(selectedDate),
+                        DateHelper.createMidnightOfNextDay(selectedDate));
+    }
 
-	public String newEvent() {
-		event = new Event();
-		event.setEndTime(selectedDate.toDateTimeAtCurrentTime().plusMinutes(30).toDate());
-		event.setStartTime(selectedDate.toDateTimeAtCurrentTime().toDate());
-		return "createEditView?faces-redirect=true";
-	}
+    /**
+     * Creates a new Event
+     * @return page nav
+     */
+    public String newEvent() {
+        event = new Event();
+        event.setEndTime(selectedDate.toDateTimeAtCurrentTime().plusMinutes(30).toDate());
+        event.setStartTime(selectedDate.toDateTimeAtCurrentTime().toDate());
+        return "createEditView?faces-redirect=true";
+    }
 
-	public String save() {
-		eventRepo.save(event);
-		events.add(event);
-		resetData();
+    /**
+     * Saves a new event in database
+     * @return page nav
+     */
+    public String save() {
+        eventRepo.save(event);
+        events.add(event);
+        resetData();
 
-		return "index?faces-redirect=true";
-	}
+        return "index?faces-redirect=true";
+    }
 
-	private void resetData() {
-		event = null;
-		this.endTime = null;
-		this.startTime = null;
-		this.name = null;
-	}
+    private void resetData() {
+        event = null;
+        this.endTime = null;
+        this.startTime = null;
+        this.name = null;
+    }
 
-	public String cancel() {
-		event = null;
-		return "index?faces-redirect=true";
-	}
+    /**
+     * Don't save -> cancel 
+     * @return page nav
+     */
+    public String cancel() {
+        event = null;
+        return "index?faces-redirect=true";
+    }
 
-	public Integer[] getHours() {
-		return DateHelper.getNumberOfHours();
-	}
+    public Integer[] getHours() {
+        return DateHelper.getNumberOfHours();
+    }
 
-	public void next() {
-		LOGGER.debug("next called");
-		selectedDate = selectedDate.plusDays(1);
-		updateEvents();
-	}
+    /**
+     * Select next day
+     */
+    public void next() {
+        LOGGER.debug("next called");
+        selectedDate = selectedDate.plusDays(1);
+        updateEvents();
+    }
 
-	public void gotoDate(final AjaxBehaviorEvent event) {
-		LOGGER.debug("gotoDate called");
-		updateEvents();
-	}
+    /**
+     * Goto selected date
+     * @param event
+     */
+    public void gotoDate(final AjaxBehaviorEvent event) {
+        LOGGER.debug("gotoDate called");
+        updateEvents();
+    }
 
-	public void previous() {
-		LOGGER.debug("previous called");
-		selectedDate = selectedDate.minusDays(1);
-		updateEvents();
-	}
+    /**
+     * Select previous day
+     */
+    public void previous() {
+        LOGGER.debug("previous called");
+        selectedDate = selectedDate.minusDays(1);
+        updateEvents();
+    }
 
-	public LocalDate getSelectedDate() {
-		return selectedDate;
-	}
+    public LocalDate getSelectedDate() {
+        return selectedDate;
+    }
 
-	public void setSelectedDate(final LocalDate selectedDate) {
-		this.selectedDate = selectedDate;
-	}
+    public void setSelectedDate(final LocalDate selectedDate) {
+        this.selectedDate = selectedDate;
+    }
 
-	public List<Event> getEvents() {
-		return events;
-	}
+    public List<Event> getEvents() {
+        return events;
+    }
 
-	public void setEvents(final List<Event> events) {
-		this.events = events;
-	}
+    public void setEvents(final List<Event> events) {
+        this.events = events;
+    }
 
-	public LocalTime getStartTime() {
-		return startTime;
-	}
+    public LocalTime getStartTime() {
+        return startTime;
+    }
 
-	public void setStartTime(final LocalTime startTime) {
-		this.startTime = startTime;
-	}
+    public void setStartTime(final LocalTime startTime) {
+        this.startTime = startTime;
+    }
 
-	public LocalTime getEndTime() {
-		return endTime;
-	}
+    public LocalTime getEndTime() {
+        return endTime;
+    }
 
-	public void setEndTime(final LocalTime endTime) {
-		this.endTime = endTime;
-	}
+    public void setEndTime(final LocalTime endTime) {
+        this.endTime = endTime;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(final String name) {
-		this.name = name;
-	}
+    public void setName(final String name) {
+        this.name = name;
+    }
 
-	public void validateTimeInput(final ComponentSystemEvent event) {
+    public Event getEvent() {
+        return event;
+    }
 
-		FacesContext fc = FacesContext.getCurrentInstance();
-		FacesMessage msg;
-		UIComponent components = event.getComponent();
-
-		// get start
-		UIInput start = (UIInput) components.findComponent("start");
-		LocalTime startValue = (LocalTime) start.getValue();
-		if (startValue == null) {
-			fc.renderResponse();
-			return;
-		}
-		LOGGER.debug(startValue.toString());
-
-		// get end
-		UIInput end = (UIInput) components.findComponent("end");
-		LocalTime endValue = (LocalTime) end.getValue();
-		if (endValue == null) {
-			fc.renderResponse();
-			return;
-		}
-		LOGGER.debug(endValue.toString());
-
-		if (endValue.isBefore(startValue)) {
-			msg = new FacesMessage("Die Endzeit darf nicht vor der Startzeit liegen.");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			fc.addMessage(end.getClientId(), msg);
-			fc.renderResponse();
-		}
-	}
-
-	public Event getEvent() {
-		return event;
-	}
-
-	public void setEvent(final Event event) {
-		this.event = event;
-	}
+    public void setEvent(final Event event) {
+        this.event = event;
+    }
 }

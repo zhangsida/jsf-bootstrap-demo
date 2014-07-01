@@ -23,28 +23,26 @@ import de.bit.common.DateHelper;
 @FacesConverter("at.bit.JsfDateTimeConverter")
 public class JSFDateTimeConverter implements Converter {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext
-	 * , javax.faces.component.UIComponent, java.lang.String)
-	 */
-	@Override
-	public Object getAsObject(final FacesContext facesContext, final UIComponent comp, final String string) throws ConverterException {
-		return DateHelper.convertFromUiString(string);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext ,
+     * javax.faces.component.UIComponent, java.lang.String)
+     */
+    @Override
+    public Object getAsObject(final FacesContext facesContext, final UIComponent comp, final String string) throws ConverterException {
+        return DateHelper.convertFromUiString(string);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext
-	 * , javax.faces.component.UIComponent, java.lang.Object)
-	 */
-	@Override
-	public String getAsString(final FacesContext facesContext, final UIComponent comp, final Object dateTime) throws ConverterException {
-		return ((DateTime) dateTime).toString(Constants.UI_DATE_TIME_FORMAT_STR);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext ,
+     * javax.faces.component.UIComponent, java.lang.Object)
+     */
+    @Override
+    public String getAsString(final FacesContext facesContext, final UIComponent comp, final Object dateTime) throws ConverterException {
+        return ((DateTime) dateTime).toString(Constants.UI_DATE_TIME_FORMAT_STR);
+    }
 
 }

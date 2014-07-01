@@ -5,21 +5,21 @@ import java.util.List;
 /**
  * Interface class to be used together with the pagination composite component.
  * 
- * @author pbayer
+ * @author philipp.bayer@bridging-it.de
  * @param <T>
  */
 public interface PaginationController<T> {
 
-	void prevPage();
+    void prevPage();
 
-	void nextPage();
+    void nextPage();
 
-	long pages();
+    long pages();
 
-	List<T> fetchCurrentPage();
+    List<T> fetchCurrentPage();
 
-	long getCurrentPage();
+    long getCurrentPage();
 
-	void setCurrentPage(long currentPage);
+    void setCurrentPage(long currentPage);
 
 }
