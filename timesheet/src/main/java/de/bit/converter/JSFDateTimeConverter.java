@@ -30,7 +30,7 @@ public class JSFDateTimeConverter implements Converter {
      * javax.faces.component.UIComponent, java.lang.String)
      */
     @Override
-    public Object getAsObject(final FacesContext facesContext, final UIComponent comp, final String string) throws ConverterException {
+    public Object getAsObject(final FacesContext facesContext, final UIComponent comp, final String string) {
         return DateHelper.convertFromUiString(string);
     }
 
@@ -41,7 +41,7 @@ public class JSFDateTimeConverter implements Converter {
      * javax.faces.component.UIComponent, java.lang.Object)
      */
     @Override
-    public String getAsString(final FacesContext facesContext, final UIComponent comp, final Object dateTime) throws ConverterException {
+    public String getAsString(final FacesContext facesContext, final UIComponent comp, final Object dateTime) {
         return ((DateTime) dateTime).toString(Constants.UI_DATE_TIME_FORMAT_STR);
     }
 
