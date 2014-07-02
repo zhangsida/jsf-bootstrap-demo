@@ -48,6 +48,12 @@ public class Event {
     @Column(name = "end_time")
     private Date   endTime;
 
+/**
+ * Helper method for showing the ending time on the JSF pages. Annotated wit @NonNull
+ * for input validation.
+ * 
+ * @return {@link #endTime} as {@link LocalTime}
+ */
     @NotNull
     public LocalTime getEndTimeLocal() {
         if (endTime == null) {
@@ -56,49 +62,72 @@ public class Event {
         return LocalTime.fromDateFields(endTime);
     }
 
-    public void setEndTimeLocal(final LocalTime endTime) {
-        if (endTime == null) {
-            this.endTime = null;
-            return;
-        }
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(this.endTime);
-        cal.set(Calendar.MINUTE, endTime.getMinuteOfHour());
-        cal.set(Calendar.HOUR_OF_DAY, endTime.getHourOfDay());
-
-        this.endTime = cal.getTime();
-
+	/**
+	 * Helper method for setting the time entered into the JSF page into the
+	 * current {@link #endTime}.
+	 * 
+	 * @param endTime
+	 */
+	public void setEndTimeLocal(final LocalTime endTime) {
+  		if (endTime == null) {
+  			this.endTime = null;
+  			return;
+  		}
+  		Calendar cal = Calendar.getInstance();
+  		cal.setTime(this.endTime);
+  		cal.set(Calendar.MINUTE, endTime.getMinuteOfHour());
+  		cal.set(Calendar.HOUR_OF_DAY, endTime.getHourOfDay());
+  		this.endTime = cal.getTime();
+	}
+	/**
+	 * Helper method for showing the starting time on the JSF pages. Annotated
+	 * wit @NonNull for input validation.
+	 * 
+	 * @return {@link #startTime} as {@link LocalTime}
+	 */
+	@NotNull
+	public LocalTime getStartTimeLocal() {
+		if (startTime == null) {
+			return null;
+		}
+		return LocalTime.fromDateFields(startTime);
+	}
+	
+	/**
+	 * Helper method for setting the time entered into the JSF page into the
+	 * current {@link #startTime}.
+	 * 
+	 * @param endTime
+	 */
+	public void setStartTimeLocal(final LocalTime startTime) {
+		if (startTime == null) {
+			this.startTime = null;
+			return;
+		}
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(this.startTime);
+		cal.set(Calendar.MINUTE, startTime.getMinuteOfHour());
+		cal.set(Calendar.HOUR_OF_DAY, startTime.getHourOfDay());
+		this.startTime = cal.getTime();
     }
-
-    @NotNull
-    public LocalTime getStartTimeLocal() {
-        if (startTime == null) {
-            return null;
-        }
-        return LocalTime.fromDateFields(startTime);
-    }
-
-    public void setStartTimeLocal(final LocalTime startTime) {
-        if (startTime == null) {
-            this.startTime = null;
-            return;
-        }
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(this.startTime);
-        cal.set(Calendar.MINUTE, startTime.getMinuteOfHour());
-        cal.set(Calendar.HOUR_OF_DAY, startTime.getHourOfDay());
-        this.startTime = cal.getTime();
-
-    }
-
-    public String getStartTimeStr() {
-        return getStartTimeLocal().toString(Constants.TIME_FORMATTER);
-    }
-
-    public String getEndTimeStr() {
-        return getEndTimeLocal().toString(Constants.TIME_FORMATTER);
-    }
-
+	
+	/**
+	 * @return the starting time as formatted string
+	 */
+	public String getStartTimeStr() {
+		return getStartTimeLocal().toString(Constants.TIME_FORMATTER);
+	}
+	
+	/**
+	 * @return the ending time as formatted string
+	 */
+	public String getEndTimeStr() {
+		return getEndTimeLocal().toString(Constants.TIME_FORMATTER);
+	}
+	
+	/**
+	 * @return the start date as formatted string
+	 */
     public String getDateStr() {
         return new SimpleDateFormat(Constants.UI_DATE_FORMAT_STR).format(startTime); //NOPMD
     }

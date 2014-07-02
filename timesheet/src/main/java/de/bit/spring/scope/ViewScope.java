@@ -8,12 +8,13 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
 
 /**
- * Copied over to resolve the common view scope topic.
+ * 'ViewScoped' implentation for Spring. Stores or retrieves the annotated
+ * object into/from the ViewMap of the current view.
  * 
- * @author unknown
+ * @author philipp.bayer@bridging-it.de
  * 
  */
-public class ViewScope implements Scope {
+ public class ViewScope implements Scope {
 
     @Override
     public Object get(final String name, final ObjectFactory<?> objectFactory) {
